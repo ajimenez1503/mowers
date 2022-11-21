@@ -27,7 +27,7 @@ public class PlateauServiceImplTest {
 
     @Test
     public void givenService_thenCreatePlateau() {
-        Plateau plateau = new Plateau("ID", 10, 22, Orientation.N);
+        Plateau plateau = new Plateau("ID", 10, 22);
         when(repo.createPlateau(any())).thenReturn(plateau);
 
         Plateau plateauResult = service.createPlateau(plateau);
@@ -36,7 +36,7 @@ public class PlateauServiceImplTest {
 
     @Test
     public void givenService_thenGetPlateau() {
-        Optional<Plateau> plateau = Optional.of(new Plateau("ID", 10, 22, Orientation.N));
+        Optional<Plateau> plateau = Optional.of(new Plateau("ID", 10, 22));
         when(repo.getPlateau(anyString())).thenReturn(plateau);
 
         Optional<Plateau> plateauResult = service.getPlateau("ID");

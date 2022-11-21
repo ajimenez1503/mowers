@@ -12,5 +12,4 @@ import lombok.*;
 public class PlateauDto {
     private int X;
     private int Y;
-    private Orientation orientation;
 }

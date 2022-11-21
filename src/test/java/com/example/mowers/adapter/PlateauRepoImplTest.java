@@ -14,18 +14,17 @@ public class PlateauRepoImplTest {
 
     @Test
     void givenRepo_thenCreatePlateau() {
-        Plateau plateau = new Plateau("", 10, 22, Orientation.N);
+        Plateau plateau = new Plateau("", 10, 22);
         Plateau plateauResult = repo.createPlateau(plateau);
         assertNotNull(plateauResult);
         assertNotEquals(plateau.getId(), plateauResult.getId());
         assertEquals(plateau.getX(), plateauResult.getX());
         assertEquals(plateau.getY(), plateauResult.getY());
-        assertEquals(plateau.getOrientation(), plateauResult.getOrientation());
     }
 
     @Test
     void givenRepo_whenCreatePlateau_thenGetThePlateau() {
-        Plateau plateau = new Plateau("", 10, 22, Orientation.N);
+        Plateau plateau = new Plateau("", 10, 22);
         Plateau plateauCreated = repo.createPlateau(plateau);
         assertNotNull(plateauCreated);
 

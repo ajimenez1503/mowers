@@ -22,7 +22,7 @@ class MowersApplicationTests {
 
     @Test
     public void givenApp_whenCreatingPlateau_thenGetPlateau() {
-        PlateauDto plateauDto = new PlateauDto(10, 20, Orientation.N);
+        PlateauDto plateauDto = new PlateauDto(10, 20);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Object> request = new HttpEntity<Object>(plateauDto, headers);

@@ -44,8 +44,8 @@ public class PlateauControllerImplTest {
 
     @Test
     public void givenController_thenCreatePlateau() {
-        PlateauDto plateauDto = new PlateauDto(10, 22, Orientation.N);
-        Plateau plateauResult = new Plateau("ID", plateauDto.getX(), plateauDto.getY(), plateauDto.getOrientation());
+        PlateauDto plateauDto = new PlateauDto(10, 22);
+        Plateau plateauResult = new Plateau("ID", plateauDto.getX(), plateauDto.getY());
         when(service.createPlateau(any())).thenReturn(plateauResult);
 
         ResponseEntity<String> result = controller.createPlateau(plateauDto);
@@ -55,7 +55,7 @@ public class PlateauControllerImplTest {
 
     @Test
     public void givenController_whenPlateauExist_thenGetPlateau() {
-        Optional<Plateau> plateau = Optional.of(new Plateau("ID", 10, 22, Orientation.N));
+        Optional<Plateau> plateau = Optional.of(new Plateau("ID", 10, 22));
 
         when(service.getPlateau(any())).thenReturn(plateau);
 
@@ -63,7 +63,6 @@ public class PlateauControllerImplTest {
         assertEquals(HttpStatus.OK, result.getStatusCode());
         assertEquals(plateau.get().getX(), result.getBody().getX());
         assertEquals(plateau.get().getY(), result.getBody().getY());
-        assertEquals(plateau.get().getOrientation(), result.getBody().getOrientation());
     }
 
     @Test

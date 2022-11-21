@@ -9,8 +9,9 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Builder(toBuilder = true)
-public class Plateau {
+public class Mower {
     private String id;
     private int X;
     private int Y;
+    private Orientation orientation;
 }
