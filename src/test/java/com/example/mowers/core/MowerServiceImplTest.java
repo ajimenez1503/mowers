@@ -3,6 +3,7 @@ package com.example.mowers.core;
 import com.example.mowers.core.domain.Mower;
 import com.example.mowers.core.domain.Orientation;
 import com.example.mowers.core.domain.Plateau;
+import com.example.mowers.core.dto.MowerDto;
 import com.example.mowers.core.impl.MowerServiceImpl;
 import com.example.mowers.port.MowerRepo;
 import com.example.mowers.port.PlateauService;
@@ -35,27 +36,30 @@ public class MowerServiceImplTest {
 
     @Test
     public void givenService_thenCreateMower() {
-        Mower mower = new Mower("IdMower", "IdPlateau", new Point(10, 22), Orientation.N);
-        when(plateauService.getPlateau(anyString())).thenReturn(Optional.of(new Plateau("IdPlateau", 20, 25)));
+        Plateau plateau = new Plateau(20, 25);
+        MowerDto mowerDto = new MowerDto(plateau.getId(), new Point(10, 22), Orientation.N);
+        Mower mower = new Mower(mowerDto);
+
+        when(plateauService.getPlateau(anyString())).thenReturn(Optional.of(plateau));
         when(repo.createMower(any())).thenReturn(mower);
 
-        Optional<Mower> mowerResult = service.createMower(mower);
+        Optional<Mower> mowerResult = service.createMower(mowerDto);
         assertTrue(mowerResult.isPresent());
         assertEquals(mower, mowerResult.get());
     }
 
     @Test
     public void givenService_whenPlateauDoesNotExist_thenCreateMower() {
-        Mower mower = new Mower("IdMower", "IdPlateau", new Point(10, 22), Orientation.N);
+        MowerDto mowerDto = new MowerDto("IdPlateau", new Point(10, 22), Orientation.N);
         when(plateauService.getPlateau(anyString())).thenReturn(Optional.empty());
 
-        Optional<Mower> mowerResult = service.createMower(mower);
+        Optional<Mower> mowerResult = service.createMower(mowerDto);
         assertTrue(mowerResult.isEmpty());
     }
 
     @Test
     public void givenService_thenGetMower() {
-        Optional<Mower> mower = Optional.of(new Mower("IdMower", "IdPlateau", new Point(10, 22), Orientation.N));
+        Optional<Mower> mower = Optional.of(new Mower("IdPlateau", new Point(10, 22), Orientation.N));
         when(repo.getMower(anyString())).thenReturn(mower);
 
         Optional<Mower> mowerResult = service.getMower("IdMower");

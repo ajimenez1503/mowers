@@ -25,8 +25,7 @@ public class MowerControllerImpl implements MowerController {
 
     @Override
     public ResponseEntity<String> createMower(MowerDto mowerRequest) {
-        Mower mower = modelMapper.map(mowerRequest, Mower.class);
-        Optional<Mower> mowerResult = mowerService.createMower(mower);
+        Optional<Mower> mowerResult = mowerService.createMower(mowerRequest);
 
         if (mowerResult.isPresent()) {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(mowerResult.get().getId()).toUri();

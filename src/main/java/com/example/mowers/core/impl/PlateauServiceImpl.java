@@ -1,6 +1,7 @@
 package com.example.mowers.core.impl;
 
 import com.example.mowers.core.domain.Plateau;
+import com.example.mowers.core.dto.PlateauDto;
 import com.example.mowers.port.PlateauRepo;
 import com.example.mowers.port.PlateauService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class PlateauServiceImpl implements PlateauService {
     final private PlateauRepo plateauRepo;
 
     @Override
-    public Plateau createPlateau(Plateau plateau) {
+    public Plateau createPlateau(PlateauDto plateau) {
         return plateauRepo.createPlateau(plateau);
     }
 

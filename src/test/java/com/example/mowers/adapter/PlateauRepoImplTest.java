@@ -1,6 +1,7 @@
 package com.example.mowers.adapter;
 
 import com.example.mowers.core.domain.Plateau;
+import com.example.mowers.core.dto.PlateauDto;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -13,17 +14,17 @@ public class PlateauRepoImplTest {
 
     @Test
     void givenRepo_thenCreatePlateau() {
-        Plateau plateau = new Plateau("", 10, 22);
+        PlateauDto plateau = new PlateauDto(10, 22);
         Plateau plateauResult = repo.createPlateau(plateau);
         assertNotNull(plateauResult);
-        assertNotEquals(plateau.getId(), plateauResult.getId());
-        assertEquals(plateau.getSizeX(), plateauResult.getSizeX());
-        assertEquals(plateau.getSizeY(), plateauResult.getSizeY());
+        assertNotNull(plateauResult.getId());
+        assertEquals(plateau.getSizeX() + 1, plateauResult.getSizeX());
+        assertEquals(plateau.getSizeY() + 1, plateauResult.getSizeY());
     }
 
     @Test
     void givenRepo_whenCreatePlateau_thenGetThePlateau() {
-        Plateau plateau = new Plateau("", 10, 22);
+        PlateauDto plateau = new PlateauDto(10, 22);
         Plateau plateauCreated = repo.createPlateau(plateau);
         assertNotNull(plateauCreated);
 

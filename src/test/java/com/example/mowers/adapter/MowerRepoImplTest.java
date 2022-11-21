@@ -2,6 +2,7 @@ package com.example.mowers.adapter;
 
 import com.example.mowers.core.domain.Mower;
 import com.example.mowers.core.domain.Orientation;
+import com.example.mowers.core.dto.MowerDto;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -14,10 +15,10 @@ public class MowerRepoImplTest {
 
     @Test
     void givenRepo_thenCreateMower() {
-        Mower mower = new Mower("", "idPlateau", new Point(10, 22), Orientation.N);
+        MowerDto mower = new MowerDto("idPlateau", new Point(10, 22), Orientation.N);
         Mower mowerResult = repo.createMower(mower);
         assertNotNull(mowerResult);
-        assertNotEquals(mower.getId(), mowerResult.getId());
+        assertNotNull(mowerResult.getId());
         assertEquals(mower.getPlateauId(), mowerResult.getPlateauId());
         assertEquals(mower.getPos(), mowerResult.getPos());
         assertEquals(mower.getOrientation(), mowerResult.getOrientation());
@@ -25,7 +26,7 @@ public class MowerRepoImplTest {
 
     @Test
     void givenRepo_whenCreateMower_thenGetTheMower() {
-        Mower mower = new Mower("", "idPlateau", new Point(10, 22), Orientation.N);
+        MowerDto mower = new MowerDto("idPlateau", new Point(10, 22), Orientation.N);
         Mower mowerCreated = repo.createMower(mower);
         assertNotNull(mowerCreated);
 

@@ -44,7 +44,7 @@ public class PlateauControllerImplTest {
     @Test
     public void givenController_thenCreatePlateau() {
         PlateauDto plateauDto = new PlateauDto(10, 22);
-        Plateau plateauResult = new Plateau("ID", plateauDto.getSizeX(), plateauDto.getSizeY());
+        Plateau plateauResult = new Plateau(plateauDto);
         when(service.createPlateau(any())).thenReturn(plateauResult);
 
         ResponseEntity<String> result = controller.createPlateau(plateauDto);
@@ -54,7 +54,7 @@ public class PlateauControllerImplTest {
 
     @Test
     public void givenController_whenPlateauExist_thenGetPlateau() {
-        Plateau plateau = new Plateau("ID", 10, 22);
+        Plateau plateau = new Plateau(10, 22);
 
         when(service.getPlateau(any())).thenReturn(Optional.of(plateau));
 

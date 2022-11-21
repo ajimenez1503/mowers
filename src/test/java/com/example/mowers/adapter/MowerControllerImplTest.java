@@ -46,7 +46,7 @@ public class MowerControllerImplTest {
     @Test
     public void givenController_thenCreateMower() {
         MowerDto mowerDto = new MowerDto("IdPlateau", new Point(10, 22), Orientation.N);
-        Mower mowerResult = new Mower("IdMower", mowerDto.getPlateauId(), mowerDto.getPos(), mowerDto.getOrientation());
+        Mower mowerResult = new Mower(mowerDto);
         when(service.createMower(any())).thenReturn(Optional.of(mowerResult));
 
         ResponseEntity<String> result = controller.createMower(mowerDto);
@@ -65,7 +65,7 @@ public class MowerControllerImplTest {
 
     @Test
     public void givenController_whenMowerExist_thenGetMower() {
-        Mower mower = new Mower("IdMower", "IdPlateau", new Point(10, 22), Orientation.N);
+        Mower mower = new Mower("IdPlateau", new Point(10, 22), Orientation.N);
 
         when(service.getMower(any())).thenReturn(Optional.of(mower));
 

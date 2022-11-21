@@ -1,6 +1,7 @@
 package com.example.mowers.core;
 
 import com.example.mowers.core.domain.Plateau;
+import com.example.mowers.core.dto.PlateauDto;
 import com.example.mowers.core.impl.PlateauServiceImpl;
 import com.example.mowers.port.PlateauRepo;
 import org.junit.jupiter.api.Test;
@@ -26,19 +27,21 @@ public class PlateauServiceImplTest {
 
     @Test
     public void givenService_thenCreatePlateau() {
-        Plateau plateau = new Plateau("ID", 10, 22);
+        PlateauDto plateauDto = new PlateauDto(10, 20);
+        Plateau plateau = new Plateau(plateauDto);
         when(repo.createPlateau(any())).thenReturn(plateau);
 
-        Plateau plateauResult = service.createPlateau(plateau);
+
+        Plateau plateauResult = service.createPlateau(plateauDto);
         assertEquals(plateau, plateauResult);
     }
 
     @Test
     public void givenService_thenGetPlateau() {
-        Optional<Plateau> plateau = Optional.of(new Plateau("ID", 10, 22));
+        Optional<Plateau> plateau = Optional.of(new Plateau(10, 22));
         when(repo.getPlateau(anyString())).thenReturn(plateau);
 
-        Optional<Plateau> plateauResult = service.getPlateau("ID");
+        Optional<Plateau> plateauResult = service.getPlateau(plateau.get().getId());
         assertEquals(plateau, plateauResult);
     }
 }

@@ -1,11 +1,12 @@
 package com.example.mowers.port;
 
 import com.example.mowers.core.domain.Plateau;
+import com.example.mowers.core.dto.PlateauDto;
 
 import java.util.Optional;
 
 public interface PlateauService {
-    Plateau createPlateau(Plateau plateau);
+    Plateau createPlateau(PlateauDto plateau);
 
     Optional<Plateau> getPlateau(String id);
 }

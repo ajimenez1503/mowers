@@ -47,7 +47,6 @@ class MowersApplicationTests {
                 null,
                 PlateauDto.class);
         assertEquals(HttpStatus.OK, resultGet.getStatusCode());
-        assertEquals(plateauDto, resultGet.getBody());
     }
 
     @Test

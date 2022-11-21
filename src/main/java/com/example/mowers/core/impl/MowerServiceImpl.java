@@ -1,6 +1,8 @@
 package com.example.mowers.core.impl;
 
 import com.example.mowers.core.domain.Mower;
+import com.example.mowers.core.domain.Plateau;
+import com.example.mowers.core.dto.MowerDto;
 import com.example.mowers.port.MowerRepo;
 import com.example.mowers.port.MowerService;
 import com.example.mowers.port.PlateauService;
@@ -20,10 +22,15 @@ public class MowerServiceImpl implements MowerService {
 
 
     @Override
-    public Optional<Mower> createMower(Mower mower) {
+    public Optional<Mower> createMower(MowerDto mower) {
         // Ensure the plateau ID is valid
-        if (plateauService.getPlateau(mower.getPlateauId()).isEmpty()) {
+        Optional<Plateau> plateau = plateauService.getPlateau(mower.getPlateauId());
+        if (plateau.isEmpty()) {
             log.warn("Plateau ID {} does not exits", mower.getPlateauId());
+            return Optional.empty();
+        }
+        if (!plateau.get().isValidPosition(mower.getPos())) {
+            log.warn("The mower position {} is not valid", mower.getPos());
             return Optional.empty();
         }
 
