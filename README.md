@@ -1,11 +1,13 @@
 # mowers
 
+Application to control mowers through an API.
+
 ## Goal
 
-- We need to develop an application that helps in controlling brand-new mowers.
+- Develop an application that helps in controlling mowers.
     - The mowers are able to cut the grass and to inspect the terrain with their cameras to identify problems in the
       green areas.
-- A green grass plateau must be navigated by the mowers, so they can cut the grass
+- A green grass plateau must be navigated by the mowers, so they can cut the grass.
 
 ## Details
 
@@ -76,6 +78,11 @@ mvn clean install
 ```
 mvn spring-boot:run
 ```
+
+## Documentation
+
+The documentation is available using springdoc-openapi.
+Run the application `mvn spring-boot:run` and access to http://localhost:8080/swagger-ui/index.html
 
 ## Assumptions
 
