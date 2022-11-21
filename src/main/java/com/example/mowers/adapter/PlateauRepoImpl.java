@@ -16,18 +16,15 @@ public class PlateauRepoImpl implements PlateauRepo {
 
     @Override
     public Plateau createPlateau(Plateau plateau) {
-        plateau.setId(UUID.randomUUID().toString());
+        Plateau plateauToSave = plateau.toBuilder().build();
+        plateauToSave.setId(UUID.randomUUID().toString());
 
-        plateauMap.put(plateau.getId(), plateau);
-        return plateau;
+        plateauMap.put(plateauToSave.getId(), plateauToSave);
+        return plateauToSave;
     }
 
     @Override
     public Optional<Plateau> getPlateau(String id) {
-        if (plateauMap.containsKey(id)) {
-            return Optional.of(plateauMap.get(id));
-        } else {
-            return Optional.empty();
-        }
+        return Optional.ofNullable(plateauMap.get(id));
     }
 }

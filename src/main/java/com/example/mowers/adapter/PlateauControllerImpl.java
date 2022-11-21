@@ -23,7 +23,6 @@ public class PlateauControllerImpl implements PlateauController {
     final private PlateauService plateauService;
     final private ModelMapper modelMapper;
 
-
     @Override
     public ResponseEntity<String> createPlateau(PlateauDto plateauRequest) {
         Plateau plateau = modelMapper.map(plateauRequest, Plateau.class);

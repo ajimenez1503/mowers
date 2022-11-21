@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Builder(toBuilder = true)
 public class Plateau {
 
     private String id;
