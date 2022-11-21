@@ -28,7 +28,7 @@ public class PlateauControllerImpl implements PlateauController {
         Plateau plateau = modelMapper.map(plateauRequest, Plateau.class);
         Plateau plateauResult = plateauService.createPlateau(plateau);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(plateauResult.getId()).toUri();
-        log.info("Created Plateau with ID {} and URL {} ", plateau.getId(), location);
+        log.info("Created Plateau with ID {} and URL {} ", plateauResult.getId(), location);
         return ResponseEntity.created(location).build();
     }
 

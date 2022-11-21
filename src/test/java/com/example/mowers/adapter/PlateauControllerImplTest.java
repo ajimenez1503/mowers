@@ -1,6 +1,5 @@
 package com.example.mowers.adapter;
 
-import com.example.mowers.core.domain.Orientation;
 import com.example.mowers.core.domain.Plateau;
 import com.example.mowers.core.dto.PlateauDto;
 import com.example.mowers.port.PlateauService;
@@ -45,7 +44,7 @@ public class PlateauControllerImplTest {
     @Test
     public void givenController_thenCreatePlateau() {
         PlateauDto plateauDto = new PlateauDto(10, 22);
-        Plateau plateauResult = new Plateau("ID", plateauDto.getX(), plateauDto.getY());
+        Plateau plateauResult = new Plateau("ID", plateauDto.getSizeX(), plateauDto.getSizeY());
         when(service.createPlateau(any())).thenReturn(plateauResult);
 
         ResponseEntity<String> result = controller.createPlateau(plateauDto);
@@ -55,21 +54,21 @@ public class PlateauControllerImplTest {
 
     @Test
     public void givenController_whenPlateauExist_thenGetPlateau() {
-        Optional<Plateau> plateau = Optional.of(new Plateau("ID", 10, 22));
+        Plateau plateau = new Plateau("ID", 10, 22);
 
-        when(service.getPlateau(any())).thenReturn(plateau);
+        when(service.getPlateau(any())).thenReturn(Optional.of(plateau));
 
         ResponseEntity<PlateauDto> result = controller.getPlateau("ID");
         assertEquals(HttpStatus.OK, result.getStatusCode());
-        assertEquals(plateau.get().getX(), result.getBody().getX());
-        assertEquals(plateau.get().getY(), result.getBody().getY());
+        assertEquals(plateau.getSizeX(), result.getBody().getSizeX());
+        assertEquals(plateau.getSizeY(), result.getBody().getSizeY());
     }
 
     @Test
     public void givenController_whenPlateauDoesNotExist_thenGetPlateauNotFound() {
         when(service.getPlateau(any())).thenReturn(Optional.empty());
 
-        ResponseEntity<PlateauDto> result = controller.getPlateau("ID");
+        ResponseEntity<PlateauDto> result = controller.getPlateau("InvalidId");
         assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
     }
 

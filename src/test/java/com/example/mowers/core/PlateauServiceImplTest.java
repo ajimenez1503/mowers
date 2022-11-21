@@ -1,6 +1,5 @@
 package com.example.mowers.core;
 
-import com.example.mowers.core.domain.Orientation;
 import com.example.mowers.core.domain.Plateau;
 import com.example.mowers.core.impl.PlateauServiceImpl;
 import com.example.mowers.port.PlateauRepo;

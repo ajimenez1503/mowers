@@ -29,8 +29,8 @@ Application to control mowers through an API.
     - Body:
       ```json
       { 
-          "X" :10,
-          "Y" :22,
+          "sizeX" :10,
+          "sizeY" :22,
           "orientation": "N"
       }
        ```
@@ -42,8 +42,8 @@ Application to control mowers through an API.
         curl --location --request POST 'http://localhost:8080/plateau' \
             --header 'Content-Type: application/json' \
             --data-raw '{
-                "X": 10,
-                "Y": 22,
+                "sizeX": 10,
+                "sizeY": 22,
                 "orientation": "N"
             }'
       ```
@@ -54,8 +54,8 @@ Application to control mowers through an API.
             - Body:
                 ```json
                   { 
-                      "X" :10,
-                      "Y" :22,
+                      "sizeX" :10,
+                      "sizeY" :22,
                       "orientation": "N"
                   }
                 ```

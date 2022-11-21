@@ -11,6 +11,6 @@ import lombok.*;
 @Builder(toBuilder = true)
 public class Plateau {
     private String id;
-    private int X;
-    private int Y;
+    private int sizeX;
+    private int sizeY;
 }

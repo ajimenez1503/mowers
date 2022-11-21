@@ -1,6 +1,5 @@
 package com.example.mowers.adapter;
 
-import com.example.mowers.core.domain.Orientation;
 import com.example.mowers.core.domain.Plateau;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +17,8 @@ public class PlateauRepoImplTest {
         Plateau plateauResult = repo.createPlateau(plateau);
         assertNotNull(plateauResult);
         assertNotEquals(plateau.getId(), plateauResult.getId());
-        assertEquals(plateau.getX(), plateauResult.getX());
-        assertEquals(plateau.getY(), plateauResult.getY());
+        assertEquals(plateau.getSizeX(), plateauResult.getSizeX());
+        assertEquals(plateau.getSizeY(), plateauResult.getSizeY());
     }
 
     @Test

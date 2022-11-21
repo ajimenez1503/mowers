@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(value = "/plateau")
-@Tag(name = "Plateau API", description = "Manage the plateau")
+@Tag(name = "Plateau API", description = "Manage the plateaus")
 public interface PlateauController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a plateau")
