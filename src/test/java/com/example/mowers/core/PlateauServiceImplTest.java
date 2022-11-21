@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -32,8 +33,9 @@ public class PlateauServiceImplTest {
         when(repo.createPlateau(any())).thenReturn(plateau);
 
 
-        Plateau plateauResult = service.createPlateau(plateauDto);
-        assertEquals(plateau, plateauResult);
+        Optional<Plateau> plateauResult = service.createPlateau(plateauDto);
+        assertTrue(plateauResult.isPresent());
+        assertEquals(plateau, plateauResult.get());
     }
 
     @Test

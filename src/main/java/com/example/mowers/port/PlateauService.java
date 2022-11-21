@@ -6,7 +6,7 @@ import com.example.mowers.core.dto.PlateauDto;
 import java.util.Optional;
 
 public interface PlateauService {
-    Plateau createPlateau(PlateauDto plateau);
+    Optional<Plateau> createPlateau(PlateauDto plateau);
 
     Optional<Plateau> getPlateau(String id);
 }

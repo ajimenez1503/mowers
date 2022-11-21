@@ -32,7 +32,7 @@ public class MowerControllerImpl implements MowerController {
             log.info("Created Mower with ID {} and URL {} ", mowerResult.get().getId(), location);
             return ResponseEntity.created(location).build();
         } else {
-            log.warn("The mower {} could not be created ", mowerRequest);
+            log.warn("The mower {} is not valid ", mowerRequest);
             return new ResponseEntity<>("", HttpStatus.CONFLICT);
         }
     }

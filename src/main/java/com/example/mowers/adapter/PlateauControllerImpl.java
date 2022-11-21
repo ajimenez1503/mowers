@@ -25,10 +25,15 @@ public class PlateauControllerImpl implements PlateauController {
 
     @Override
     public ResponseEntity<String> createPlateau(PlateauDto plateauRequest) {
-        Plateau plateauResult = plateauService.createPlateau(plateauRequest);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(plateauResult.getId()).toUri();
-        log.info("Created Plateau with ID {} and URL {} ", plateauResult.getId(), location);
-        return ResponseEntity.created(location).build();
+        Optional<Plateau> plateauResult = plateauService.createPlateau(plateauRequest);
+        if (plateauResult.isPresent()) {
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(plateauResult.get().getId()).toUri();
+            log.info("Created Plateau with ID {} and URL {} ", plateauResult.get().getId(), location);
+            return ResponseEntity.created(location).build();
+        } else {
+            log.warn("The Plateau {} is not valid", plateauRequest);
+            return new ResponseEntity<>("", HttpStatus.CONFLICT);
+        }
     }
 
     @Override

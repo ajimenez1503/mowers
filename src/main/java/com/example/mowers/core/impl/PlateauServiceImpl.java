@@ -16,8 +16,8 @@ public class PlateauServiceImpl implements PlateauService {
     final private PlateauRepo plateauRepo;
 
     @Override
-    public Plateau createPlateau(PlateauDto plateau) {
-        return plateauRepo.createPlateau(plateau);
+    public Optional<Plateau> createPlateau(PlateauDto plateau) {
+        return Optional.ofNullable(plateauRepo.createPlateau(plateau));
     }
 
     @Override

@@ -45,7 +45,7 @@ public class PlateauControllerImplTest {
     public void givenController_thenCreatePlateau() {
         PlateauDto plateauDto = new PlateauDto(10, 22);
         Plateau plateauResult = new Plateau(plateauDto);
-        when(service.createPlateau(any())).thenReturn(plateauResult);
+        when(service.createPlateau(any())).thenReturn(Optional.of(plateauResult));
 
         ResponseEntity<String> result = controller.createPlateau(plateauDto);
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
