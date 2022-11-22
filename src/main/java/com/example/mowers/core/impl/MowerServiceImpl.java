@@ -29,8 +29,12 @@ public class MowerServiceImpl implements MowerService {
             log.warn("Plateau ID {} does not exits", mower.getPlateauId());
             return Optional.empty();
         }
-        if (!plateau.get().isValidPosition(mower.getPos())) {
-            log.warn("The mower position {} is not valid", mower.getPos());
+        if (!plateau.get().isValidPosition(mower.getPosition())) {
+            log.warn("The mower position {} is not valid", mower.getPosition());
+            return Optional.empty();
+        }
+        if (!plateau.get().isPositionAvailable(mower.getPosition())) {
+            log.warn("The mower position {} is not available", mower.getPosition());
             return Optional.empty();
         }
 

@@ -14,17 +14,17 @@ import java.util.UUID;
 public class Mower {
     private String id;
     private String plateauId;
-    private Point pos;
+    private Point position;
     private Orientation orientation;
 
-    public Mower(String plateauId, Point pos, Orientation orientation) {
+    public Mower(String plateauId, Point position, Orientation orientation) {
         this.id = UUID.randomUUID().toString();
         this.plateauId = plateauId;
-        this.pos = pos;
+        this.position = position;
         this.orientation = orientation;
     }
 
     public Mower(MowerDto mowerDto) {
-        this(mowerDto.getPlateauId(), mowerDto.getPos(), mowerDto.getOrientation());
+        this(mowerDto.getPlateauId(), mowerDto.getPosition(), mowerDto.getOrientation());
     }
 }

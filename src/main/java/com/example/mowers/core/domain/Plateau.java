@@ -4,6 +4,7 @@ import com.example.mowers.core.dto.PlateauDto;
 import lombok.*;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.UUID;
 
 @Getter
@@ -14,25 +15,43 @@ import java.util.UUID;
 public class Plateau {
     private String id;
 
-    private boolean availability[][];
     private int sizeX;
     private int sizeY;
+    private Availability availability[][];
 
     public Plateau(int sizeX, int sizeY) {
         this.id = UUID.randomUUID().toString();
-        this.availability = new boolean[this.sizeX][this.sizeY];
         this.sizeX = sizeX + 1;
         this.sizeY = sizeY + 1;
+        this.availability = new Availability[this.sizeX][this.sizeY];
+        Arrays.stream(this.availability).forEach(a -> Arrays.fill(a, Availability.FREE));
     }
 
     public Plateau(PlateauDto plateauDto) {
         this(plateauDto.getSizeX(), plateauDto.getSizeY());
     }
 
-    public boolean isValidPosition(Point pos) {
-        if (pos.getX() > this.sizeX || pos.getY() > this.sizeY) {
-            return false;
+    public void setPositionFree(Point position) throws Exception {
+        if (isValidPosition(position)) {
+            this.availability[position.x][position.y] = Availability.FREE;
+        } else {
+            throw new Exception("Position (" + position.getX() + ", " + position.getY() + ") is not valid");
         }
-        return true;
+    }
+
+    public void setPositionBusy(Point position) throws Exception {
+        if (isValidPosition(position)) {
+            this.availability[position.x][position.y] = Availability.BUSY;
+        } else {
+            throw new Exception("Position (" + position.getX() + ", " + position.getY() + ") is not valid");
+        }
+    }
+
+    public boolean isValidPosition(Point position) {
+        return position.getX() < this.sizeX && position.getY() < this.sizeY;
+    }
+
+    public boolean isPositionAvailable(Point position) {
+        return this.availability[position.x][position.y] == Availability.FREE;
     }
 }

@@ -34,11 +34,11 @@ public class MowerServiceImplTest {
     private MowerServiceImpl service;
 
     private String plateauId = "plateauId";
-    private Point point = new Point(10, 22);
     private Orientation orientation = Orientation.N;
 
     private int sizeX = 10, sizeY = 25;
-
+    Point positionOutside = new Point(sizeX + 10, sizeY + 2);
+    private Point point = new Point(sizeX - 1, sizeY - 2);
 
     @Test
     public void givenService_thenCreateMower() {
@@ -73,9 +73,21 @@ public class MowerServiceImplTest {
     }
 
     @Test
-    public void givenService_whenMowerPosOut_thenCreateMowerFailure() {
+    public void givenService_whenMowerPositionOutside_thenCreateMowerFailure() {
         Plateau plateau = new Plateau(sizeX, sizeY);
-        MowerDto mowerDto = new MowerDto(plateau.getId(), new Point(sizeX + 10, sizeY), orientation);
+        MowerDto mowerDto = new MowerDto(plateau.getId(), positionOutside, orientation);
+
+        when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
+
+        Optional<Mower> mowerResult = service.createMower(mowerDto);
+        assertTrue(mowerResult.isEmpty());
+    }
+
+    @Test
+    public void givenService_whenMowerPositionBusy_thenCreateMowerFailure() throws Exception {
+        Plateau plateau = new Plateau(sizeX, sizeY);
+        plateau.setPositionBusy(point);
+        MowerDto mowerDto = new MowerDto(plateau.getId(), point, orientation);
 
         when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
 

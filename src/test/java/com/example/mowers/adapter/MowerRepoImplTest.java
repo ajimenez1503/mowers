@@ -25,7 +25,7 @@ public class MowerRepoImplTest {
         assertNotNull(mowerResult);
         assertNotNull(mowerResult.getId());
         assertEquals(mower.getPlateauId(), mowerResult.getPlateauId());
-        assertEquals(mower.getPos(), mowerResult.getPos());
+        assertEquals(mower.getPosition(), mowerResult.getPosition());
         assertEquals(mower.getOrientation(), mowerResult.getOrientation());
     }
 

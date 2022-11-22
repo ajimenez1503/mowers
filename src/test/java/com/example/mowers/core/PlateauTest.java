@@ -1,10 +1,12 @@
 package com.example.mowers.core;
 
+import com.example.mowers.core.domain.Availability;
 import com.example.mowers.core.domain.Plateau;
 import com.example.mowers.core.dto.PlateauDto;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,6 +14,8 @@ public class PlateauTest {
 
     private int sizeX = 10;
     private int sizeY = 22;
+    Point positionInside = new Point(sizeX, sizeY);
+    Point positionOutside = new Point(sizeX + 2, sizeY + 3);
 
 
     @Test
@@ -22,6 +26,9 @@ public class PlateauTest {
         assertEquals(sizeX + 1, plateau.getSizeX());
         assertEquals(sizeY + 1, plateau.getSizeY());
         assertNotNull(plateau.getAvailability());
+        assertEquals(sizeX + 1, plateau.getAvailability().length);
+        Arrays.stream(plateau.getAvailability()).forEach(elements -> assertEquals(sizeY + 1, elements.length));
+        Arrays.stream(plateau.getAvailability()).forEach(elements -> Arrays.stream(elements).forEach(element -> assertEquals(Availability.FREE, element)));
     }
 
     @Test
@@ -40,21 +47,54 @@ public class PlateauTest {
     }
 
     @Test
-    void givenPlateau_whenPosInside_thenCheckPosition() {
+    void givenPlateau_thenSetPositionBusy_andSetPositionFree() throws Exception {
         Plateau plateau = new Plateau(sizeX, sizeY);
         assertNotNull(plateau);
 
-        Point pos = new Point(sizeX, sizeY);
-        assertTrue(plateau.isValidPosition(pos));
+        Point position = new Point(sizeX, sizeY);
+        assertTrue(plateau.isPositionAvailable(position));
+        plateau.setPositionBusy(position);
+        assertFalse(plateau.isPositionAvailable(position));
+        plateau.setPositionFree(position);
+        assertTrue(plateau.isPositionAvailable(position));
     }
 
     @Test
-    void givenPlateau_whenPosOut_thenCheckPosition() {
+    void givenPlateau_whenPositionOutside_thenSetPositionBusyFail() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         assertNotNull(plateau);
 
-        Point pos = new Point(sizeX + 5, sizeY);
-        assertFalse(plateau.isValidPosition(pos));
+        Exception thrown = assertThrows(
+                Exception.class,
+                () -> plateau.setPositionBusy(positionOutside));
+        assertTrue(thrown.getMessage().contains("Position (" + positionOutside.getX() + ", " + positionOutside.getY() + ") is not valid"));
+    }
+
+    @Test
+    void givenPlateau_whenPositionOutside_thenSetPositionFreeFail() {
+        Plateau plateau = new Plateau(sizeX, sizeY);
+        assertNotNull(plateau);
+
+        Exception thrown = assertThrows(
+                Exception.class,
+                () -> plateau.setPositionFree(positionOutside));
+        assertTrue(thrown.getMessage().contains("Position (" + positionOutside.getX() + ", " + positionOutside.getY() + ") is not valid"));
+    }
+
+    @Test
+    void givenPlateau_whenPositionInside_thenisValidPositionSuccess() {
+        Plateau plateau = new Plateau(sizeX, sizeY);
+        assertNotNull(plateau);
+
+        assertTrue(plateau.isValidPosition(positionInside));
+    }
+
+    @Test
+    void givenPlateau_whenPositionOutside_thenisValidPositionFail() {
+        Plateau plateau = new Plateau(sizeX, sizeY);
+        assertNotNull(plateau);
+
+        assertFalse(plateau.isValidPosition(positionOutside));
     }
 
 }

@@ -22,7 +22,7 @@ public class MowerTest {
         assertNotNull(mower);
         assertNotNull(mower.getId());
         assertEquals(plateauId, mower.getPlateauId());
-        assertEquals(point, mower.getPos());
+        assertEquals(point, mower.getPosition());
         assertEquals(orientation, mower.getOrientation());
     }
 
@@ -31,13 +31,13 @@ public class MowerTest {
         MowerDto mowerDto = new MowerDto(plateauId, point, orientation);
         assertNotNull(mowerDto);
         assertEquals(plateauId, mowerDto.getPlateauId());
-        assertEquals(point, mowerDto.getPos());
+        assertEquals(point, mowerDto.getPosition());
         assertEquals(orientation, mowerDto.getOrientation());
 
         Mower mower = new Mower(mowerDto);
         assertNotNull(mower.getId());
         assertEquals(plateauId, mower.getPlateauId());
-        assertEquals(point, mower.getPos());
+        assertEquals(point, mower.getPosition());
         assertEquals(orientation, mower.getOrientation());
     }
 }

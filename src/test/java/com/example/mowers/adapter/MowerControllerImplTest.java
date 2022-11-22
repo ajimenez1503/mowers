@@ -60,7 +60,7 @@ public class MowerControllerImplTest {
     }
 
     @Test
-    public void givenController_whenPlateauDoesNotExist_thenCreateMower() {
+    public void givenController_whenServiceCannotCreateMower_thenCreateMowerConflict() {
         MowerDto mowerDto = new MowerDto(plateauId, point, orientation);
         when(service.createMower(mowerDto)).thenReturn(Optional.empty());
 
@@ -77,7 +77,7 @@ public class MowerControllerImplTest {
         ResponseEntity<MowerDto> result = controller.getMower(mower.getId());
         assertEquals(HttpStatus.OK, result.getStatusCode());
         assertEquals(mower.getPlateauId(), result.getBody().getPlateauId());
-        assertEquals(mower.getPos(), result.getBody().getPos());
+        assertEquals(mower.getPosition(), result.getBody().getPosition());
         assertEquals(mower.getOrientation(), result.getBody().getOrientation());
     }
 

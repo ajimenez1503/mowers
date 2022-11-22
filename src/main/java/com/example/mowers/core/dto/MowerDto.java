@@ -13,6 +13,6 @@ import java.awt.*;
 @ToString
 public class MowerDto {
     private String plateauId;
-    private Point pos;
+    private Point position;
     private Orientation orientation;
 }
