@@ -9,11 +9,10 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class Plateau {
-    private String id;
+    private final String id;
 
     private int sizeX;
     private int sizeY;

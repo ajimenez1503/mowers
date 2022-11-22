@@ -8,12 +8,11 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class Mower {
-    private String id;
-    private String plateauId;
+    private final String id;
+    private final String plateauId;
     private Point position;
     private Orientation orientation;
 
