@@ -24,17 +24,24 @@ public class MowerServiceImpl implements MowerService {
     @Override
     public Optional<Mower> createMower(MowerDto mower) {
         // Ensure the plateau ID is valid
-        Optional<Plateau> plateau = plateauService.getPlateau(mower.getPlateauId());
-        if (plateau.isEmpty()) {
+        Optional<Plateau> plateauOptional = plateauService.getPlateau(mower.getPlateauId());
+        if (plateauOptional.isEmpty()) {
             log.warn("Plateau ID {} does not exits", mower.getPlateauId());
             return Optional.empty();
         }
-        if (!plateau.get().isValidPosition(mower.getPosition())) {
+        Plateau plateau = plateauOptional.get();
+        if (!plateau.isValidPosition(mower.getPosition())) {
             log.warn("The mower position {} is not valid", mower.getPosition());
             return Optional.empty();
         }
-        if (!plateau.get().isPositionAvailable(mower.getPosition())) {
+        if (!plateau.isPositionAvailable(mower.getPosition())) {
             log.warn("The mower position {} is not available", mower.getPosition());
+            return Optional.empty();
+        }
+        try {
+            plateau.setPositionBusy(mower.getPosition());
+        } catch (Exception e) {
+            log.warn("The mower position {} is not available. Exception {}", mower.getPosition(), e.getMessage());
             return Optional.empty();
         }
 

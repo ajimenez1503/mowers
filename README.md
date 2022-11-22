@@ -18,7 +18,7 @@ Application to control mowers through an API.
 - Control a mower by sending a string of letters.
     - The possible letters are “L”, “R” and ”M”.
         - “L” and “R” make the mower spin 90 degrees left or right respectively, without moving from its current spot.
-        - “M” means to move forward one grid point and maintain the same Heading.
+        - “M” means to move forward one grid position and maintain the same Heading.
 
 ## API
 
@@ -85,6 +85,10 @@ The documentation is available using springdoc-openapi.
 Run the application `mvn spring-boot:run` and access to http://localhost:8080/swagger-ui/index.html
 
 ## Assumptions
+
+- If a mower try to move to a position out of the plateau, the movement will be ommited.
+- If a mower try to move to a busy position, the movement will be ommited.
+- Only one mower will be moved at the same time.
 
 ## TODO
 

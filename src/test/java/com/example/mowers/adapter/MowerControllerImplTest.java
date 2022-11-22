@@ -7,8 +7,9 @@ import com.example.mowers.port.MowerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -20,19 +21,19 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class MowerControllerImplTest {
 
+    @Mock
     private MowerService service;
 
-    private ModelMapper modelMapper;
+    @InjectMocks
     private MowerControllerImpl controller;
 
     private String plateauId = "plateauId";
-    private Point point = new Point(10, 22);
+    private Point position = new Point(10, 22);
     private Orientation orientation = Orientation.N;
 
     private int sizeX = 10, sizeY = 25;
@@ -41,16 +42,11 @@ public class MowerControllerImplTest {
     public void setup() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
-        service = mock(MowerService.class);
-        modelMapper = new ModelMapper();
-
-        controller = new MowerControllerImpl(service, modelMapper);
     }
 
     @Test
     public void givenController_thenCreateMower() {
-        MowerDto mowerDto = new MowerDto(plateauId, point, orientation);
+        MowerDto mowerDto = new MowerDto(plateauId, position, orientation);
         Mower mowerResult = new Mower(mowerDto);
         when(service.createMower(mowerDto)).thenReturn(Optional.of(mowerResult));
 
@@ -61,7 +57,7 @@ public class MowerControllerImplTest {
 
     @Test
     public void givenController_whenServiceCannotCreateMower_thenCreateMowerConflict() {
-        MowerDto mowerDto = new MowerDto(plateauId, point, orientation);
+        MowerDto mowerDto = new MowerDto(plateauId, position, orientation);
         when(service.createMower(mowerDto)).thenReturn(Optional.empty());
 
         ResponseEntity<String> result = controller.createMower(mowerDto);
@@ -70,7 +66,7 @@ public class MowerControllerImplTest {
 
     @Test
     public void givenController_whenMowerExist_thenGetMower() {
-        Mower mower = new Mower(plateauId, point, orientation);
+        Mower mower = new Mower(plateauId, position, orientation);
 
         when(service.getMower(mower.getId())).thenReturn(Optional.of(mower));
 

@@ -31,6 +31,10 @@ public class Plateau {
         this(plateauDto.getSizeX(), plateauDto.getSizeY());
     }
 
+    public PlateauDto getDto() {
+        return new PlateauDto(this.sizeX, this.sizeY);
+    }
+
     public void setPositionFree(Point position) throws Exception {
         if (isValidPosition(position)) {
             this.availability[position.x][position.y] = Availability.FREE;

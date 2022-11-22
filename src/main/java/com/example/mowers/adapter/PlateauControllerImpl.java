@@ -6,7 +6,6 @@ import com.example.mowers.port.PlateauController;
 import com.example.mowers.port.PlateauService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +20,6 @@ import java.util.Optional;
 public class PlateauControllerImpl implements PlateauController {
 
     final private PlateauService plateauService;
-    final private ModelMapper modelMapper;
 
     @Override
     public ResponseEntity<String> createPlateau(PlateauDto plateauRequest) {
@@ -40,7 +38,7 @@ public class PlateauControllerImpl implements PlateauController {
     public ResponseEntity<PlateauDto> getPlateau(String id) {
         Optional<Plateau> plateau = plateauService.getPlateau(id);
         if (plateau.isPresent()) {
-            PlateauDto plateauResult = modelMapper.map(plateau.get(), PlateauDto.class);
+            PlateauDto plateauResult = plateau.get().getDto();
             log.info("Get Plateau {} ", plateauResult);
             return new ResponseEntity<>(plateauResult, HttpStatus.OK);
         } else {

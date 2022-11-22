@@ -6,7 +6,6 @@ import com.example.mowers.port.MowerController;
 import com.example.mowers.port.MowerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +20,6 @@ import java.util.Optional;
 public class MowerControllerImpl implements MowerController {
 
     final private MowerService mowerService;
-    final private ModelMapper modelMapper;
 
     @Override
     public ResponseEntity<String> createMower(MowerDto mowerRequest) {
@@ -41,7 +39,7 @@ public class MowerControllerImpl implements MowerController {
     public ResponseEntity<MowerDto> getMower(String id) {
         Optional<Mower> mower = mowerService.getMower(id);
         if (mower.isPresent()) {
-            MowerDto mowerResult = modelMapper.map(mower.get(), MowerDto.class);
+            MowerDto mowerResult = mower.get().getDto();
             log.info("Get Mower {} ", mowerResult);
             return new ResponseEntity<>(mowerResult, HttpStatus.OK);
         } else {

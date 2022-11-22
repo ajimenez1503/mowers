@@ -47,6 +47,16 @@ public class PlateauTest {
     }
 
     @Test
+    void givenPlateau_getPlateauDto() {
+        Plateau plateau = new Plateau(sizeX, sizeY);
+        assertNotNull(plateau);
+
+        PlateauDto plateauDto = plateau.getDto();
+        assertEquals(plateauDto.getSizeX(), plateau.getSizeX());
+        assertEquals(plateauDto.getSizeY(), plateau.getSizeY());
+    }
+
+    @Test
     void givenPlateau_thenSetPositionBusy_andSetPositionFree() throws Exception {
         Plateau plateau = new Plateau(sizeX, sizeY);
         assertNotNull(plateau);

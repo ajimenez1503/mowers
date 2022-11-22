@@ -27,4 +27,8 @@ public class Mower {
     public Mower(MowerDto mowerDto) {
         this(mowerDto.getPlateauId(), mowerDto.getPosition(), mowerDto.getOrientation());
     }
+
+    public MowerDto getDto() {
+        return new MowerDto(this.getPlateauId(), this.getPosition(), this.getOrientation());
+    }
 }

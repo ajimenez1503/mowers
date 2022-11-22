@@ -38,12 +38,12 @@ public class MowerServiceImplTest {
 
     private int sizeX = 10, sizeY = 25;
     Point positionOutside = new Point(sizeX + 10, sizeY + 2);
-    private Point point = new Point(sizeX - 1, sizeY - 2);
+    private Point position = new Point(sizeX - 1, sizeY - 2);
 
     @Test
     public void givenService_thenCreateMower() {
         Plateau plateau = new Plateau(sizeX, sizeY);
-        MowerDto mowerDto = new MowerDto(plateau.getId(), point, orientation);
+        MowerDto mowerDto = new MowerDto(plateau.getId(), position, orientation);
         Mower mower = new Mower(mowerDto);
 
         when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
@@ -56,7 +56,7 @@ public class MowerServiceImplTest {
 
     @Test
     public void givenService_whenPlateauDoesNotExist_thenCreateMower() {
-        MowerDto mowerDto = new MowerDto(plateauId, point, orientation);
+        MowerDto mowerDto = new MowerDto(plateauId, position, orientation);
         when(plateauService.getPlateau(plateauId)).thenReturn(Optional.empty());
 
         Optional<Mower> mowerResult = service.createMower(mowerDto);
@@ -65,7 +65,7 @@ public class MowerServiceImplTest {
 
     @Test
     public void givenService_thenGetMower() {
-        Optional<Mower> mower = Optional.of(new Mower(plateauId, point, orientation));
+        Optional<Mower> mower = Optional.of(new Mower(plateauId, position, orientation));
         when(repo.getMower(any())).thenReturn(mower);
 
         Optional<Mower> mowerResult = service.getMower("IdMower");
@@ -86,8 +86,8 @@ public class MowerServiceImplTest {
     @Test
     public void givenService_whenMowerPositionBusy_thenCreateMowerFailure() throws Exception {
         Plateau plateau = new Plateau(sizeX, sizeY);
-        plateau.setPositionBusy(point);
-        MowerDto mowerDto = new MowerDto(plateau.getId(), point, orientation);
+        plateau.setPositionBusy(position);
+        MowerDto mowerDto = new MowerDto(plateau.getId(), position, orientation);
 
         when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
 

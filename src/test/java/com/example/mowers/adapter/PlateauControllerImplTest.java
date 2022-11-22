@@ -6,8 +6,9 @@ import com.example.mowers.port.PlateauService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -18,15 +19,14 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PlateauControllerImplTest {
-
+    @Mock
     private PlateauService service;
 
-    private ModelMapper modelMapper;
+    @InjectMocks
     private PlateauControllerImpl controller;
     private int sizeX = 10, sizeY = 25;
 
@@ -34,11 +34,6 @@ public class PlateauControllerImplTest {
     public void setup() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
-        service = mock(PlateauService.class);
-        modelMapper = new ModelMapper();
-
-        controller = new PlateauControllerImpl(service, modelMapper);
     }
 
     @Test
