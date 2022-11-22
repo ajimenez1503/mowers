@@ -12,9 +12,11 @@ public class PlateauRepoImplTest {
 
     private PlateauRepoImpl repo = new PlateauRepoImpl();
 
+    private int sizeX = 10, sizeY = 22;
+
     @Test
     void givenRepo_thenCreatePlateau() {
-        PlateauDto plateau = new PlateauDto(10, 22);
+        PlateauDto plateau = new PlateauDto(sizeX, sizeY);
         Plateau plateauResult = repo.createPlateau(plateau);
         assertNotNull(plateauResult);
         assertNotNull(plateauResult.getId());
@@ -24,7 +26,7 @@ public class PlateauRepoImplTest {
 
     @Test
     void givenRepo_whenCreatePlateau_thenGetThePlateau() {
-        PlateauDto plateau = new PlateauDto(10, 22);
+        PlateauDto plateau = new PlateauDto(sizeX, sizeY);
         Plateau plateauCreated = repo.createPlateau(plateau);
         assertNotNull(plateauCreated);
 

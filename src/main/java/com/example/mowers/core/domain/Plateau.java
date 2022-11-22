@@ -13,16 +13,16 @@ import java.util.UUID;
 @ToString
 public class Plateau {
     private String id;
+
+    private boolean availability[][];
     private int sizeX;
     private int sizeY;
 
-    private boolean availability[][];
-
     public Plateau(int sizeX, int sizeY) {
         this.id = UUID.randomUUID().toString();
+        this.availability = new boolean[this.sizeX][this.sizeY];
         this.sizeX = sizeX + 1;
         this.sizeY = sizeY + 1;
-        this.availability = new boolean[this.sizeX][this.sizeY];
     }
 
     public Plateau(PlateauDto plateauDto) {

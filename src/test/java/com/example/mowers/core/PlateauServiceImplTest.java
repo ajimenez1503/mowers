@@ -14,8 +14,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,12 +24,13 @@ public class PlateauServiceImplTest {
     @InjectMocks
     private PlateauServiceImpl service;
 
+    private int sizeX = 10, sizeY = 22;
+
     @Test
     public void givenService_thenCreatePlateau() {
-        PlateauDto plateauDto = new PlateauDto(10, 20);
+        PlateauDto plateauDto = new PlateauDto(sizeX, sizeY);
         Plateau plateau = new Plateau(plateauDto);
-        when(repo.createPlateau(any())).thenReturn(plateau);
-
+        when(repo.createPlateau(plateauDto)).thenReturn(plateau);
 
         Optional<Plateau> plateauResult = service.createPlateau(plateauDto);
         assertTrue(plateauResult.isPresent());
@@ -40,8 +39,8 @@ public class PlateauServiceImplTest {
 
     @Test
     public void givenService_thenGetPlateau() {
-        Optional<Plateau> plateau = Optional.of(new Plateau(10, 22));
-        when(repo.getPlateau(anyString())).thenReturn(plateau);
+        Optional<Plateau> plateau = Optional.of(new Plateau(sizeX, sizeY));
+        when(repo.getPlateau(plateau.get().getId())).thenReturn(plateau);
 
         Optional<Plateau> plateauResult = service.getPlateau(plateau.get().getId());
         assertEquals(plateau, plateauResult);

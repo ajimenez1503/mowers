@@ -18,7 +18,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -29,6 +28,7 @@ public class PlateauControllerImplTest {
 
     private ModelMapper modelMapper;
     private PlateauControllerImpl controller;
+    private int sizeX = 10, sizeY = 25;
 
     @BeforeEach
     public void setup() {
@@ -43,9 +43,9 @@ public class PlateauControllerImplTest {
 
     @Test
     public void givenController_thenCreatePlateau() {
-        PlateauDto plateauDto = new PlateauDto(10, 22);
+        PlateauDto plateauDto = new PlateauDto(sizeX, sizeY);
         Plateau plateauResult = new Plateau(plateauDto);
-        when(service.createPlateau(any())).thenReturn(Optional.of(plateauResult));
+        when(service.createPlateau(plateauDto)).thenReturn(Optional.of(plateauResult));
 
         ResponseEntity<String> result = controller.createPlateau(plateauDto);
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
@@ -54,11 +54,11 @@ public class PlateauControllerImplTest {
 
     @Test
     public void givenController_whenPlateauExist_thenGetPlateau() {
-        Plateau plateau = new Plateau(10, 22);
+        Plateau plateau = new Plateau(sizeX, sizeY);
 
-        when(service.getPlateau(any())).thenReturn(Optional.of(plateau));
+        when(service.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
 
-        ResponseEntity<PlateauDto> result = controller.getPlateau("ID");
+        ResponseEntity<PlateauDto> result = controller.getPlateau(plateau.getId());
         assertEquals(HttpStatus.OK, result.getStatusCode());
         assertEquals(plateau.getSizeX(), result.getBody().getSizeX());
         assertEquals(plateau.getSizeY(), result.getBody().getSizeY());
@@ -66,9 +66,10 @@ public class PlateauControllerImplTest {
 
     @Test
     public void givenController_whenPlateauDoesNotExist_thenGetPlateauNotFound() {
-        when(service.getPlateau(any())).thenReturn(Optional.empty());
+        String invalidId = "invalidId";
+        when(service.getPlateau(invalidId)).thenReturn(Optional.empty());
 
-        ResponseEntity<PlateauDto> result = controller.getPlateau("InvalidId");
+        ResponseEntity<PlateauDto> result = controller.getPlateau(invalidId);
         assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
     }
 

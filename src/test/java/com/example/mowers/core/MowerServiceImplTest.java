@@ -19,7 +19,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,14 +33,21 @@ public class MowerServiceImplTest {
     @InjectMocks
     private MowerServiceImpl service;
 
+    private String plateauId = "plateauId";
+    private Point point = new Point(10, 22);
+    private Orientation orientation = Orientation.N;
+
+    private int sizeX = 10, sizeY = 25;
+
+
     @Test
     public void givenService_thenCreateMower() {
-        Plateau plateau = new Plateau(20, 25);
-        MowerDto mowerDto = new MowerDto(plateau.getId(), new Point(10, 22), Orientation.N);
+        Plateau plateau = new Plateau(sizeX, sizeY);
+        MowerDto mowerDto = new MowerDto(plateau.getId(), point, orientation);
         Mower mower = new Mower(mowerDto);
 
-        when(plateauService.getPlateau(anyString())).thenReturn(Optional.of(plateau));
-        when(repo.createMower(any())).thenReturn(mower);
+        when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
+        when(repo.createMower(mowerDto)).thenReturn(mower);
 
         Optional<Mower> mowerResult = service.createMower(mowerDto);
         assertTrue(mowerResult.isPresent());
@@ -50,8 +56,8 @@ public class MowerServiceImplTest {
 
     @Test
     public void givenService_whenPlateauDoesNotExist_thenCreateMower() {
-        MowerDto mowerDto = new MowerDto("IdPlateau", new Point(10, 22), Orientation.N);
-        when(plateauService.getPlateau(anyString())).thenReturn(Optional.empty());
+        MowerDto mowerDto = new MowerDto(plateauId, point, orientation);
+        when(plateauService.getPlateau(plateauId)).thenReturn(Optional.empty());
 
         Optional<Mower> mowerResult = service.createMower(mowerDto);
         assertTrue(mowerResult.isEmpty());
@@ -59,10 +65,21 @@ public class MowerServiceImplTest {
 
     @Test
     public void givenService_thenGetMower() {
-        Optional<Mower> mower = Optional.of(new Mower("IdPlateau", new Point(10, 22), Orientation.N));
-        when(repo.getMower(anyString())).thenReturn(mower);
+        Optional<Mower> mower = Optional.of(new Mower(plateauId, point, orientation));
+        when(repo.getMower(any())).thenReturn(mower);
 
         Optional<Mower> mowerResult = service.getMower("IdMower");
         assertEquals(mower, mowerResult);
+    }
+
+    @Test
+    public void givenService_whenMowerPosOut_thenCreateMowerFailure() {
+        Plateau plateau = new Plateau(sizeX, sizeY);
+        MowerDto mowerDto = new MowerDto(plateau.getId(), new Point(sizeX + 10, sizeY), orientation);
+
+        when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
+
+        Optional<Mower> mowerResult = service.createMower(mowerDto);
+        assertTrue(mowerResult.isEmpty());
     }
 }

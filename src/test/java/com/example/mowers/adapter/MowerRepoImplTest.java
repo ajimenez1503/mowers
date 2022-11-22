@@ -12,10 +12,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MowerRepoImplTest {
     private MowerRepoImpl repo = new MowerRepoImpl();
+    private String plateauId = "plateauId";
+    private Point point = new Point(10, 22);
+    private Orientation orientation = Orientation.N;
+
+    private int sizeX = 10, sizeY = 25;
 
     @Test
     void givenRepo_thenCreateMower() {
-        MowerDto mower = new MowerDto("idPlateau", new Point(10, 22), Orientation.N);
+        MowerDto mower = new MowerDto(plateauId, point, orientation);
         Mower mowerResult = repo.createMower(mower);
         assertNotNull(mowerResult);
         assertNotNull(mowerResult.getId());
@@ -26,7 +31,7 @@ public class MowerRepoImplTest {
 
     @Test
     void givenRepo_whenCreateMower_thenGetTheMower() {
-        MowerDto mower = new MowerDto("idPlateau", new Point(10, 22), Orientation.N);
+        MowerDto mower = new MowerDto(plateauId, point, orientation);
         Mower mowerCreated = repo.createMower(mower);
         assertNotNull(mowerCreated);
 

@@ -20,7 +20,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -31,6 +30,12 @@ public class MowerControllerImplTest {
 
     private ModelMapper modelMapper;
     private MowerControllerImpl controller;
+
+    private String plateauId = "plateauId";
+    private Point point = new Point(10, 22);
+    private Orientation orientation = Orientation.N;
+
+    private int sizeX = 10, sizeY = 25;
 
     @BeforeEach
     public void setup() {
@@ -45,9 +50,9 @@ public class MowerControllerImplTest {
 
     @Test
     public void givenController_thenCreateMower() {
-        MowerDto mowerDto = new MowerDto("IdPlateau", new Point(10, 22), Orientation.N);
+        MowerDto mowerDto = new MowerDto(plateauId, point, orientation);
         Mower mowerResult = new Mower(mowerDto);
-        when(service.createMower(any())).thenReturn(Optional.of(mowerResult));
+        when(service.createMower(mowerDto)).thenReturn(Optional.of(mowerResult));
 
         ResponseEntity<String> result = controller.createMower(mowerDto);
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
@@ -56,8 +61,8 @@ public class MowerControllerImplTest {
 
     @Test
     public void givenController_whenPlateauDoesNotExist_thenCreateMower() {
-        MowerDto mowerDto = new MowerDto("IdPlateau", new Point(10, 22), Orientation.N);
-        when(service.createMower(any())).thenReturn(Optional.empty());
+        MowerDto mowerDto = new MowerDto(plateauId, point, orientation);
+        when(service.createMower(mowerDto)).thenReturn(Optional.empty());
 
         ResponseEntity<String> result = controller.createMower(mowerDto);
         assertEquals(HttpStatus.CONFLICT, result.getStatusCode());
@@ -65,11 +70,11 @@ public class MowerControllerImplTest {
 
     @Test
     public void givenController_whenMowerExist_thenGetMower() {
-        Mower mower = new Mower("IdPlateau", new Point(10, 22), Orientation.N);
+        Mower mower = new Mower(plateauId, point, orientation);
 
-        when(service.getMower(any())).thenReturn(Optional.of(mower));
+        when(service.getMower(mower.getId())).thenReturn(Optional.of(mower));
 
-        ResponseEntity<MowerDto> result = controller.getMower("IdMower");
+        ResponseEntity<MowerDto> result = controller.getMower(mower.getId());
         assertEquals(HttpStatus.OK, result.getStatusCode());
         assertEquals(mower.getPlateauId(), result.getBody().getPlateauId());
         assertEquals(mower.getPos(), result.getBody().getPos());
@@ -78,9 +83,10 @@ public class MowerControllerImplTest {
 
     @Test
     public void givenController_whenMowerDoesNotExist_thenGetMowerNotFound() {
-        when(service.getMower(any())).thenReturn(Optional.empty());
+        String invalidID = "invalidId";
+        when(service.getMower(invalidID)).thenReturn(Optional.empty());
 
-        ResponseEntity<MowerDto> result = controller.getMower("InvalidId");
+        ResponseEntity<MowerDto> result = controller.getMower(invalidID);
         assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
     }
 }
