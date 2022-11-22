@@ -1,5 +1,6 @@
 package com.example.mowers.adapter;
 
+import com.example.mowers.core.domain.Command;
 import com.example.mowers.core.domain.Mower;
 import com.example.mowers.core.dto.MowerDto;
 import com.example.mowers.port.MowerController;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -31,19 +34,37 @@ public class MowerControllerImpl implements MowerController {
             return ResponseEntity.created(location).build();
         } else {
             log.warn("The mower {} is not valid ", mowerRequest);
-            return new ResponseEntity<>("", HttpStatus.CONFLICT);
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 
     @Override
-    public ResponseEntity<MowerDto> getMower(String id) {
-        Optional<Mower> mower = mowerService.getMower(id);
+    public ResponseEntity<MowerDto> getMower(String mowerId) {
+        Optional<Mower> mower = mowerService.getMower(mowerId);
         if (mower.isPresent()) {
-            MowerDto mowerResult = mower.get().getDto();
-            log.info("Get Mower {} ", mowerResult);
-            return new ResponseEntity<>(mowerResult, HttpStatus.OK);
+            log.info("Get Mower {} ", mower);
+            return new ResponseEntity<>(mower.get().getDto(), HttpStatus.OK);
         } else {
-            log.info("Mower with ID {} not found ", id);
+            log.info("Mower with ID {} not found ", mowerId);
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @Override
+    public ResponseEntity<MowerDto> moveMower(String mowerId, String commands) {
+        Optional<Mower> mower = mowerService.getMower(mowerId);
+        if (mower.isPresent()) {
+            List<Command> commandList = commands.codePoints().mapToObj(c -> Command.valueOf(String.valueOf((char) c))).collect(Collectors.toList());
+            Optional<Mower> mowerResult = mowerService.moveMower(mower.get(), commandList);
+            if (mowerResult.isPresent()) {
+                log.info("Mower {} has been moved", mowerResult.get());
+                return new ResponseEntity<>(mowerResult.get().getDto(), HttpStatus.OK);
+            } else {
+                log.info("Mower with ID {} could not be moved", mowerId);
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
+        } else {
+            log.info("Mower with ID {} not found ", mowerId);
             return ResponseEntity.notFound().build();
         }
     }

@@ -86,8 +86,9 @@ Run the application `mvn spring-boot:run` and access to http://localhost:8080/sw
 
 ## Assumptions
 
-- If a mower try to move to a position out of the plateau, the movement will be ommited.
-- If a mower try to move to a busy position, the movement will be ommited.
+- A rest API will be used for the control, instead of using an input file.
+- If a mower try to move to a position out of the plateau, the movement will be omitted.
+- If a mower try to move to a busy position, the movement will be omitted.
 - Only one mower will be moved at the same time.
 
 ## TODO
