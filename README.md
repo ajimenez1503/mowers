@@ -24,125 +24,126 @@ Application to control mowers through an API.
 
 ### Plateau
 
-- POST `/plateau`
-    - Description: Create a plateau
-    - Header: `Content-Type: application/json`
-    - Body:
-      ```json
-      { 
-          "sizeX" :10,
-          "sizeY" :22
-      }
-       ```
-    - Response
-        - Status: 201 CREATED
-            - Location: `http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d`
-        - Status: 409 CONFLICT
-    - Example
-      ```
-        curl --location --request POST 'http://localhost:8080/plateau' \
-            --header 'Content-Type: application/json' \
-            --data-raw '{
-                "sizeX": 10,
-                "sizeY": 22
-            }'
-      ```
+#### POST `/plateau`
 
-- GET `/plateau/{id}`
-    - Description: Get the plateau by Id
-        - Response
-            - Status: 200 Ok
-                - Body:
-                    ```json
-                        {
-                            "sizeX" :10,
-                            "sizeY" :22
-                        }
-                    ```
-            - Status: 404 Not Found
-        - Example
-          ```
-            curl --location --request GET 'http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d'
-          ```
+- Description: Create a plateau
+- Header: `Content-Type: application/json`
+- Body:
+  ```json
+  { 
+      "sizeX" :10,
+      "sizeY" :22
+  }
+   ```
+- Response
+    - Status: 201 CREATED
+        - Location: `http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d`
+    - Status: 409 CONFLICT
+- Example
+  ```
+    curl --location --request POST 'http://localhost:8080/plateau' \
+        --header 'Content-Type: application/json' \
+        --data-raw '{
+            "sizeX": 10,
+            "sizeY": 22
+        }'
+  ```
+
+#### GET `/plateau/{id}`
+- Description: Get the plateau by Id
+- Response
+    - Status: 200 Ok
+        - Body:
+            ```json
+                {
+                    "sizeX" :10,
+                    "sizeY" :22
+                }
+            ```
+    - Status: 404 Not Found
+- Example
+  ```
+    curl --location --request GET 'http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d'
+  ```
 
 ### Mower
 
-- POST `/mower`
-    - Description: Create a mower
-    - Header: `Content-Type: application/json`
-    - Body:
-      ```json
-        {
+#### POST `/mower`
+- Description: Create a mower
+- Header: `Content-Type: application/json`
+- Body:
+  ```json
+    {
+        "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
+        "position": {
+            "x": 5,
+            "y": 6
+        },
+        "orientation": "N"
+    }
+   ```
+- Response
+    - Status: 201 CREATED
+        - Location: `http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d`
+    - Status: 409 CONFLICT
+- Example
+  ```
+    curl --location --request POST 'http://localhost:8080/mower' \
+        --header 'Content-Type: application/json' \
+        --data-raw '{
             "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
             "position": {
                 "x": 5,
                 "y": 6
             },
             "orientation": "N"
-        }
-       ```
-    - Response
-        - Status: 201 CREATED
-            - Location: `http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d`
-        - Status: 409 CONFLICT
-    - Example
-      ```
-        curl --location --request POST 'http://localhost:8080/mower' \
-            --header 'Content-Type: application/json' \
-            --data-raw '{
+        }'
+  ```
+
+#### GET `/mower/{id}`
+- Description: Get the mower by Id
+- Response
+    - Status: 200 Ok
+        - Body:
+          ```json
+            {
                 "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
                 "position": {
                     "x": 5,
                     "y": 6
                 },
                 "orientation": "N"
-            }'
-      ```
+            }
+           ```
+    - Status: 404 Not Found
+- Example
+  ```
+    curl --location --request GET 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d'
+  ```
 
-- GET `/mower/{id}`
-    - Description: Get the mower by Id
-    - Response
-        - Status: 200 Ok
-            - Body:
-              ```json
-                {
-                    "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
-                    "position": {
-                        "x": 5,
-                        "y": 6
-                    },
-                    "orientation": "N"
-                }
-               ```
-        - Status: 404 Not Found
-    - Example
-      ```
-        curl --location --request GET 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d'
-      ```
-
-- PUT `/mower/{id}`
-    - Description: Move the mower by Id
-    - Body: List of movements.
-        - Example: `LMLMLMLMM`
-    - Response
-        - Status: 200 Ok
-            - Body:
-              ```json
-                {
-                    "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
-                    "position": {
-                        "x": 5,
-                        "y": 6
-                    },
-                    "orientation": "S"
-                }
-               ```
-        - Status: 404 Not Found
-        - Status: 409 CONFLICT
-    - Example
-      ```
-        curl --location --request PUT 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d' --data-raw 'LMLMLMLMM'
-      ```
+#### PUT `/mower/{id}`
+- Description: Move the mower by Id
+- Body: List of movements.
+    - Example: `LMLMLMLMM`
+- Response
+    - Status: 200 Ok
+        - Body:
+          ```json
+            {
+                "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
+                "position": {
+                    "x": 5,
+                    "y": 6
+                },
+                "orientation": "S"
+            }
+           ```
+    - Status: 404 Not Found
+    - Status: 409 CONFLICT
+- Example
+  ```
+    curl --location --request PUT 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d' --data-raw 'LMLMLMLMM'
+  ```
 
 ## Build, test and running
 
@@ -156,6 +157,28 @@ mvn clean install
 
 ```
 mvn spring-boot:run
+```
+
+## Build and run using docker
+- Build the application:
+```
+mvn package -B
+```
+- Build the docker image:
+```
+docker build -t mower .
+```
+- Run the docker image
+```
+docker run -p 8080:8080 mower
+```
+
+### Push the docker image into Dockerhub
+ - Create repository: https://hub.docker.com/repository/docker/ajimenez15/mower
+```
+docker tag mower ajimenez15/mower
+docker login
+docker push ajimenez15/mower
 ```
 
 ## Documentation
@@ -178,7 +201,6 @@ Run the application `mvn spring-boot:run` and access to http://localhost:8080/sw
 - [ ] Logging
 - [ ] Execution handling
 - [ ] Static analysis code
-- [ ] Create a docker image
 - [ ] CI (GitActions)
     - [ ] Build and testing
     - [ ] Run static analysis
