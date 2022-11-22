@@ -25,44 +25,123 @@ Application to control mowers through an API.
 ### Plateau
 
 - POST `/plateau`
+    - Description: Create a plateau
     - Header: `Content-Type: application/json`
     - Body:
       ```json
       { 
           "sizeX" :10,
-          "sizeY" :22,
-          "orientation": "N"
+          "sizeY" :22
       }
        ```
     - Response
         - Status: 201 CREATED
             - Location: `http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d`
+        - Status: 409 CONFLICT
     - Example
       ```
         curl --location --request POST 'http://localhost:8080/plateau' \
             --header 'Content-Type: application/json' \
             --data-raw '{
                 "sizeX": 10,
-                "sizeY": 22,
-                "orientation": "N"
+                "sizeY": 22
             }'
       ```
 
 - GET `/plateau/{id}`
+    - Description: Get the plateau by Id
+        - Response
+            - Status: 200 Ok
+                - Body:
+                    ```json
+                        {
+                            "sizeX" :10,
+                            "sizeY" :22
+                        }
+                    ```
+            - Status: 404 Not Found
+        - Example
+          ```
+            curl --location --request GET 'http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d'
+          ```
+
+### Mower
+
+- POST `/mower`
+    - Description: Create a mower
+    - Header: `Content-Type: application/json`
+    - Body:
+      ```json
+        {
+            "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
+            "position": {
+                "x": 5,
+                "y": 6
+            },
+            "orientation": "N"
+        }
+       ```
+    - Response
+        - Status: 201 CREATED
+            - Location: `http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d`
+        - Status: 409 CONFLICT
+    - Example
+      ```
+        curl --location --request POST 'http://localhost:8080/mower' \
+            --header 'Content-Type: application/json' \
+            --data-raw '{
+                "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
+                "position": {
+                    "x": 5,
+                    "y": 6
+                },
+                "orientation": "N"
+            }'
+      ```
+
+- GET `/mower/{id}`
+    - Description: Get the mower by Id
     - Response
         - Status: 200 Ok
             - Body:
-                ```json
-                  { 
-                      "sizeX" :10,
-                      "sizeY" :22,
-                      "orientation": "N"
-                  }
-                ```
+              ```json
+                {
+                    "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
+                    "position": {
+                        "x": 5,
+                        "y": 6
+                    },
+                    "orientation": "N"
+                }
+               ```
         - Status: 404 Not Found
     - Example
       ```
-        curl --location --request GET 'http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d'
+        curl --location --request GET 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d'
+      ```
+
+- PUT `/mower/{id}`
+    - Description: Move the mower by Id
+    - Body: List of movements.
+        - Example: `LMLMLMLMM`
+    - Response
+        - Status: 200 Ok
+            - Body:
+              ```json
+                {
+                    "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
+                    "position": {
+                        "x": 5,
+                        "y": 6
+                    },
+                    "orientation": "S"
+                }
+               ```
+        - Status: 404 Not Found
+        - Status: 409 CONFLICT
+    - Example
+      ```
+        curl --location --request PUT 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d' --data-raw 'LMLMLMLMM'
       ```
 
 ## Build, test and running
@@ -84,6 +163,8 @@ mvn spring-boot:run
 The documentation is available using springdoc-openapi.
 Run the application `mvn spring-boot:run` and access to http://localhost:8080/swagger-ui/index.html
 
+![img.png](img/img.png)
+
 ## Assumptions
 
 - A rest API will be used for the control, instead of using an input file.
@@ -93,8 +174,9 @@ Run the application `mvn spring-boot:run` and access to http://localhost:8080/sw
 
 ## TODO
 
-- [ ] Testing
 - [ ] Documentation
+- [ ] Logging
+- [ ] Execution handling
 - [ ] Static analysis code
 - [ ] Create a docker image
 - [ ] CI (GitActions)
