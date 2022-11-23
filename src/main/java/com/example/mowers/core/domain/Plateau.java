@@ -52,7 +52,10 @@ public class Plateau {
     }
 
     public boolean isValidPosition(Point position) {
-        return position.getX() < this.sizeX && position.getY() < this.sizeY;
+        return position.getX() < this.sizeX
+                && position.getY() < this.sizeY
+                && position.getX() >= 0
+                && position.getY() >= 0;
     }
 
     public boolean isPositionAvailable(Point position) {

@@ -97,7 +97,7 @@ Application to control mowers through an API.
 - Response
     - Status: 201 CREATED
         - Location: `http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d`
-            - Body `application/json`: 
+            - Body `application/json`:
               ```json
                 {
                     "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
