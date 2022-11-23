@@ -55,9 +55,10 @@ class MowerControllerImplTest {
         Mower mowerResult = new Mower(mowerDto);
         when(service.createMower(mowerDto)).thenReturn(Optional.of(mowerResult));
 
-        ResponseEntity<String> result = controller.createMower(mowerDto);
+        ResponseEntity<MowerDto> result = controller.createMower(mowerDto);
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
         assertTrue(result.getHeaders().getLocation().getPath().contains(mowerResult.getId()));
+        assertEquals(mowerDto, result.getBody());
     }
 
     @Test
@@ -65,7 +66,7 @@ class MowerControllerImplTest {
         MowerDto mowerDto = new MowerDto(plateauId, position, orientation);
         when(service.createMower(mowerDto)).thenReturn(Optional.empty());
 
-        ResponseEntity<String> result = controller.createMower(mowerDto);
+        ResponseEntity<MowerDto> result = controller.createMower(mowerDto);
         assertEquals(HttpStatus.CONFLICT, result.getStatusCode());
     }
 

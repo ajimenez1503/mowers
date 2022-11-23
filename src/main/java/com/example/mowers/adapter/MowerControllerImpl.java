@@ -24,13 +24,13 @@ public class MowerControllerImpl implements MowerController {
     private final MowerService mowerService;
 
     @Override
-    public ResponseEntity<String> createMower(MowerDto mowerRequest) {
+    public ResponseEntity<MowerDto> createMower(MowerDto mowerRequest) {
         Optional<Mower> mowerResult = mowerService.createMower(mowerRequest);
 
         if (mowerResult.isPresent()) {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(mowerResult.get().getId()).toUri();
             log.info("Created Mower with ID {} and URL {} ", mowerResult.get().getId(), location);
-            return ResponseEntity.created(location).build();
+            return ResponseEntity.created(location).body(mowerResult.get().getDto());
         } else {
             log.warn("The mower {} is not valid ", mowerRequest);
             return ResponseEntity.status(HttpStatus.CONFLICT).build();

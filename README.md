@@ -34,21 +34,28 @@ Application to control mowers through an API.
 - Body:
   ```json
   { 
-      "sizeX" :10,
-      "sizeY" :22
+      "upperRightXCoordinate" :10,
+      "upperRightYCoordinate" :22
   }
    ```
 - Response
     - Status: 201 CREATED
         - Location: `http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d`
+        - Body:
+          ```json
+          {
+              "upperRightXCoordinate" :10,
+              "upperRightYCoordinate" :22
+          }
+          ```
     - Status: 409 CONFLICT
 - Example
   ```
     curl --location --request POST 'http://localhost:8080/plateau' \
         --header 'Content-Type: application/json' \
         --data-raw '{
-            "sizeX": 10,
-            "sizeY": 22
+            "upperRightXCoordinate": 10,
+            "upperRightYCoordinate": 22
         }'
   ```
 
@@ -60,8 +67,8 @@ Application to control mowers through an API.
         - Body:
             ```json
                 {
-                    "sizeX" :10,
-                    "sizeY" :22
+                    "upperRightYCoordinate" :10,
+                    "upperRightYCoordinate" :22
                 }
             ```
     - Status: 404 Not Found
@@ -90,6 +97,17 @@ Application to control mowers through an API.
 - Response
     - Status: 201 CREATED
         - Location: `http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d`
+          - Body:
+            ```json
+              {
+                  "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
+                  "position": {
+                      "x": 5,
+                      "y": 6  
+                  },
+                  "orientation": "N"
+              }
+            ```
     - Status: 409 CONFLICT
 - Example
   ```

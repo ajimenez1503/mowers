@@ -13,21 +13,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlateauTest {
 
     private int sizeX = 10;
+    private int upperRightXCoordinate = sizeX - 1;
     private int sizeY = 22;
-    Point positionInside = new Point(sizeX, sizeY);
+    Point positionInside = new Point(sizeX - 2, sizeY - 3);
     Point positionOutside = new Point(sizeX + 2, sizeY + 3);
-
+    private int upperRightYCoordinate = sizeY - 1;
 
     @Test
     void thenCreatePlateau() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         assertNotNull(plateau);
         assertNotNull(plateau.getId());
-        assertEquals(sizeX + 1, plateau.getSizeX());
-        assertEquals(sizeY + 1, plateau.getSizeY());
+        assertEquals(sizeX, plateau.getSizeX());
+        assertEquals(sizeY, plateau.getSizeY());
         assertNotNull(plateau.getAvailability());
-        assertEquals(sizeX + 1, plateau.getAvailability().length);
-        Arrays.stream(plateau.getAvailability()).forEach(elements -> assertEquals(sizeY + 1, elements.length));
+        assertEquals(sizeX, plateau.getAvailability().length);
+        Arrays.stream(plateau.getAvailability()).forEach(elements -> assertEquals(sizeY, elements.length));
         Arrays.stream(plateau.getAvailability()).forEach(elements -> Arrays.stream(elements).forEach(element -> assertEquals(Availability.FREE, element)));
         assertTrue(plateau.toString().contains("Plateau("));
 
@@ -37,19 +38,19 @@ class PlateauTest {
 
     @Test
     void givenPlateauDto_thenCreatePlateau() {
-        PlateauDto plateauDto = new PlateauDto(sizeX, sizeY);
+        PlateauDto plateauDto = new PlateauDto(upperRightXCoordinate, upperRightYCoordinate);
         assertNotNull(plateauDto);
-        assertEquals(sizeX, plateauDto.getSizeX());
-        assertEquals(sizeY, plateauDto.getSizeY());
+        assertEquals(upperRightXCoordinate, plateauDto.getUpperRightXCoordinate());
+        assertEquals(upperRightYCoordinate, plateauDto.getUpperRightYCoordinate());
 
-        PlateauDto plateauDto2 = new PlateauDto(sizeX, sizeY);
+        PlateauDto plateauDto2 = new PlateauDto(upperRightXCoordinate, upperRightYCoordinate);
         assertEquals(plateauDto2, plateauDto);
 
         Plateau plateau = new Plateau(plateauDto);
         assertNotNull(plateau);
         assertNotNull(plateau.getId());
-        assertEquals(sizeX + 1, plateau.getSizeX());
-        assertEquals(sizeY + 1, plateau.getSizeY());
+        assertEquals(sizeX, plateau.getSizeX());
+        assertEquals(sizeY, plateau.getSizeY());
         assertNotNull(plateau.getAvailability());
     }
 
@@ -59,8 +60,8 @@ class PlateauTest {
         assertNotNull(plateau);
 
         PlateauDto plateauDtoCopy = plateau.getDto();
-        assertEquals(plateauDtoCopy.getSizeX(), plateau.getSizeX());
-        assertEquals(plateauDtoCopy.getSizeY(), plateau.getSizeY());
+        assertEquals(plateauDtoCopy.getUpperRightXCoordinate() + 1, plateau.getSizeX());
+        assertEquals(plateauDtoCopy.getUpperRightYCoordinate() + 1, plateau.getSizeY());
     }
 
     @Test
@@ -68,12 +69,11 @@ class PlateauTest {
         Plateau plateau = new Plateau(sizeX, sizeY);
         assertNotNull(plateau);
 
-        Point position = new Point(sizeX, sizeY);
-        assertTrue(plateau.isPositionAvailable(position));
-        plateau.setPositionBusy(position);
-        assertFalse(plateau.isPositionAvailable(position));
-        plateau.setPositionFree(position);
-        assertTrue(plateau.isPositionAvailable(position));
+        assertTrue(plateau.isPositionAvailable(positionInside));
+        plateau.setPositionBusy(positionInside);
+        assertFalse(plateau.isPositionAvailable(positionInside));
+        plateau.setPositionFree(positionInside);
+        assertTrue(plateau.isPositionAvailable(positionInside));
     }
 
     @Test

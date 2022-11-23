@@ -28,7 +28,10 @@ class PlateauControllerImplTest {
 
     @InjectMocks
     private PlateauControllerImpl controller;
-    private int sizeX = 10, sizeY = 25;
+    private int sizeX = 10;
+    private int upperRightXCoordinate = sizeX - 1;
+    private int sizeY = 22;
+    private int upperRightYCoordinate = sizeY - 1;
 
     @BeforeEach
     void setup() {
@@ -38,21 +41,22 @@ class PlateauControllerImplTest {
 
     @Test
     void givenController_thenCreatePlateau() {
-        PlateauDto plateauDto = new PlateauDto(sizeX, sizeY);
+        PlateauDto plateauDto = new PlateauDto(upperRightXCoordinate, upperRightYCoordinate);
         Plateau plateauResult = new Plateau(plateauDto);
         when(service.createPlateau(plateauDto)).thenReturn(Optional.of(plateauResult));
 
-        ResponseEntity<String> result = controller.createPlateau(plateauDto);
+        ResponseEntity<PlateauDto> result = controller.createPlateau(plateauDto);
         assertEquals(HttpStatus.CREATED, result.getStatusCode());
         assertTrue(result.getHeaders().getLocation().getPath().contains(plateauResult.getId()));
+        assertEquals(plateauDto, result.getBody());
     }
 
     @Test
     void givenController_whenServiceCreatePlateauFail_thenCreatePlateauConflict() {
-        PlateauDto plateauDto = new PlateauDto(sizeX, sizeY);
+        PlateauDto plateauDto = new PlateauDto(upperRightXCoordinate, upperRightYCoordinate);
         when(service.createPlateau(plateauDto)).thenReturn(Optional.empty());
 
-        ResponseEntity<String> result = controller.createPlateau(plateauDto);
+        ResponseEntity<PlateauDto> result = controller.createPlateau(plateauDto);
         assertEquals(HttpStatus.CONFLICT, result.getStatusCode());
     }
 
@@ -64,8 +68,8 @@ class PlateauControllerImplTest {
 
         ResponseEntity<PlateauDto> result = controller.getPlateau(plateau.getId());
         assertEquals(HttpStatus.OK, result.getStatusCode());
-        assertEquals(plateau.getSizeX(), result.getBody().getSizeX());
-        assertEquals(plateau.getSizeY(), result.getBody().getSizeY());
+        assertEquals(upperRightXCoordinate, result.getBody().getUpperRightXCoordinate());
+        assertEquals(upperRightYCoordinate, result.getBody().getUpperRightYCoordinate());
     }
 
     @Test

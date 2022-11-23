@@ -18,10 +18,10 @@ public class PlateauDto {
     @Positive
     @NotEmpty
     @Schema(example = "20")
-    private int sizeX;
+    private int upperRightXCoordinate;
     @NotNull
     @Positive
     @NotEmpty
     @Schema(example = "25")
-    private int sizeY;
+    private int upperRightYCoordinate;
 }

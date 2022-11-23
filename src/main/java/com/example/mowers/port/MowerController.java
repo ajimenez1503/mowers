@@ -15,7 +15,7 @@ public interface MowerController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a mower")
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<String> createMower(@RequestBody MowerDto mowerRequest);
+    ResponseEntity<MowerDto> createMower(@RequestBody MowerDto mowerRequest);
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get a mower by ID")

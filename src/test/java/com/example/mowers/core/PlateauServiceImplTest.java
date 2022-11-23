@@ -24,11 +24,14 @@ class PlateauServiceImplTest {
     @InjectMocks
     private PlateauServiceImpl service;
 
-    private int sizeX = 10, sizeY = 22;
+    private int sizeX = 10;
+    private int upperRightXCoordinate = sizeX - 1;
+    private int sizeY = 22;
+    private int upperRightYCoordinate = sizeY - 1;
 
     @Test
     void givenService_thenCreatePlateau() {
-        PlateauDto plateauDto = new PlateauDto(sizeX, sizeY);
+        PlateauDto plateauDto = new PlateauDto(upperRightXCoordinate, upperRightYCoordinate);
         Plateau plateau = new Plateau(plateauDto);
         when(repo.createPlateau(plateauDto)).thenReturn(plateau);
 
@@ -39,10 +42,10 @@ class PlateauServiceImplTest {
 
     @Test
     void givenService_thenGetPlateau() {
-        Optional<Plateau> plateau = Optional.of(new Plateau(sizeX, sizeY));
-        when(repo.getPlateau(plateau.get().getId())).thenReturn(plateau);
+        Plateau plateau = new Plateau(sizeX, sizeY);
+        when(repo.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
 
-        Optional<Plateau> plateauResult = service.getPlateau(plateau.get().getId());
-        assertEquals(plateau, plateauResult);
+        Optional<Plateau> plateauResult = service.getPlateau(plateau.getId());
+        assertEquals(Optional.of(plateau), plateauResult);
     }
 }

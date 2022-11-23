@@ -21,18 +21,18 @@ public class Plateau {
 
     public Plateau(int sizeX, int sizeY) {
         this.id = UUID.randomUUID().toString();
-        this.sizeX = sizeX + 1;
-        this.sizeY = sizeY + 1;
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
         this.availability = new Availability[this.sizeX][this.sizeY];
         Arrays.stream(this.availability).forEach(a -> Arrays.fill(a, Availability.FREE));
     }
 
     public Plateau(PlateauDto plateauDto) {
-        this(plateauDto.getSizeX(), plateauDto.getSizeY());
+        this(plateauDto.getUpperRightXCoordinate() + 1, plateauDto.getUpperRightYCoordinate() + 1);
     }
 
     public PlateauDto getDto() {
-        return new PlateauDto(this.sizeX, this.sizeY);
+        return new PlateauDto(this.sizeX - 1, this.sizeY - 1);
     }
 
     public void setPositionFree(Point position) throws Exception {

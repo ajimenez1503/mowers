@@ -14,7 +14,7 @@ public interface PlateauController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a plateau")
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<String> createPlateau(@RequestBody PlateauDto plateau);
+    ResponseEntity<PlateauDto> createPlateau(@RequestBody PlateauDto plateau);
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get a plateau by ID")

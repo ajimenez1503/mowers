@@ -22,15 +22,15 @@ public class PlateauControllerImpl implements PlateauController {
     private final PlateauService plateauService;
 
     @Override
-    public ResponseEntity<String> createPlateau(PlateauDto plateauRequest) {
+    public ResponseEntity<PlateauDto> createPlateau(PlateauDto plateauRequest) {
         Optional<Plateau> plateauResult = plateauService.createPlateau(plateauRequest);
         if (plateauResult.isPresent()) {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(plateauResult.get().getId()).toUri();
             log.info("Created Plateau with ID {} and URL {} ", plateauResult.get().getId(), location);
-            return ResponseEntity.created(location).build();
+            return ResponseEntity.created(location).body(plateauResult.get().getDto());
         } else {
             log.warn("The Plateau {} is not valid", plateauRequest);
-            return new ResponseEntity<>("", HttpStatus.CONFLICT);
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 
