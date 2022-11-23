@@ -149,7 +149,9 @@ Application to control mowers through an API.
     - Status: 409 CONFLICT
 - Example
   ```
-    curl --location --request PUT 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d' --data-raw 'LMLMLMLMM'
+    curl --location --request PUT 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d' \
+        --header 'Content-Type: text/plain' \
+        --data-raw 'LMLMLMLMM'
   ```
 
 ## Build, test and running
@@ -207,6 +209,8 @@ Run the application `mvn spring-boot:run` and access to http://localhost:8080/sw
 
 ## Continues Integration
 
+![img.png](img/imgCI.png)
+
 - Using GitHub actions `.github/workflows/ci.yml`
 - Each time there is a push into `master` branch:
     - Build and test
@@ -214,8 +218,6 @@ Run the application `mvn spring-boot:run` and access to http://localhost:8080/sw
     - Push docker image into DockerHub
     - Static analysis with SonarCloud https://sonarcloud.io/project/overview?id=softwarejimenez_mowers
       ![img.png](img/imgSonarCloud.png)
-
-![img.png](img/imgCI.png)
 
 ## Assumptions
 
@@ -226,11 +228,6 @@ Run the application `mvn spring-boot:run` and access to http://localhost:8080/sw
 
 ## TODO
 
-- [ ] Documentation
-- [ ] Logging
-- [ ] Execution handling
-- [ ] Static analysis code
-- [ ] CI (GitActions)
-    - [ ] Build and testing
-    - [ ] Run static analysis
-    - [ ] Push docker image
+- [ ] Add extra documentation
+- [ ] Add extra Logging
+- [ ] Exception handling

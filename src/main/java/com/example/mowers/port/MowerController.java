@@ -23,7 +23,7 @@ public interface MowerController {
     ResponseEntity<MowerDto> getMower(@PathVariable(value = "id") String mowerId);
 
 
-    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
     @Operation(summary = "Move a mower with ID")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<MowerDto> moveMower(@PathVariable(value = "id") String mowerId, @RequestBody String commands);
