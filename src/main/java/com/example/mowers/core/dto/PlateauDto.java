@@ -3,9 +3,8 @@ package com.example.mowers.core.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
@@ -15,13 +14,11 @@ import javax.validation.constraints.Positive;
 @ToString
 public class PlateauDto {
     @NotNull
-    @Positive
-    @NotEmpty
+    @Min(0)
     @Schema(example = "20")
     private int upperRightXCoordinate;
     @NotNull
-    @Positive
-    @NotEmpty
+    @Min(0)
     @Schema(example = "25")
     private int upperRightYCoordinate;
 }
