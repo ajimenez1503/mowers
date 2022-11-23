@@ -24,6 +24,7 @@ class MowerTest {
         assertEquals(plateauId, mower.getPlateauId());
         assertEquals(position, mower.getPosition());
         assertEquals(orientation, mower.getOrientation());
+        assertEquals(mower, mower); // Different ID
 
         Mower mower2 = new Mower(plateauId, position, orientation);
         assertNotEquals(mower2, mower); // Different ID

@@ -22,15 +22,11 @@ class MowersApplicationTests {
     @Test
     void contextLoads() {
         assertNotNull(restTemplate);
-    }
-
-    @Test
-    void main() {
         MowersApplication.main(new String[]{});
     }
 
     @Test
-    public void givenApp_whenCreatingPlateau_thenGetPlateau() {
+    void givenApp_whenCreatingPlateau_thenGetPlateau() {
         PlateauDto plateauDto = new PlateauDto(10, 20);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -56,7 +52,7 @@ class MowersApplicationTests {
     }
 
     @Test
-    public void givenApp_whenCreatingPlateau_andCreatingMower_thenGetMower() {
+    void givenApp_whenCreatingPlateau_andCreatingMower_thenGetMower() {
         PlateauDto plateauDto = new PlateauDto(10, 20);
         HttpHeaders headersPlateau = new HttpHeaders();
         headersPlateau.setContentType(MediaType.APPLICATION_JSON);
@@ -93,7 +89,7 @@ class MowersApplicationTests {
     }
 
     @Test
-    public void givenApp_whenCreatingPlateau_andCreatingMower_thenMoveMower() {
+    void givenApp_whenCreatingPlateau_andCreatingMower_thenMoveMower() {
         PlateauDto plateauDto = new PlateauDto(10, 20);
         HttpHeaders headersPlateau = new HttpHeaders();
         headersPlateau.setContentType(MediaType.APPLICATION_JSON);
@@ -130,7 +126,7 @@ class MowersApplicationTests {
 
 
     @Test
-    public void inputTestCase1() {
+    void inputTestCase1() {
         // Plateau in "5 5"
         PlateauDto plateauDto = new PlateauDto(5, 5);
         HttpHeaders headersPlateau = new HttpHeaders();

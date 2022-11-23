@@ -30,6 +30,7 @@ class PlateauTest {
         Arrays.stream(plateau.getAvailability()).forEach(elements -> assertEquals(sizeY + 1, elements.length));
         Arrays.stream(plateau.getAvailability()).forEach(elements -> Arrays.stream(elements).forEach(element -> assertEquals(Availability.FREE, element)));
         assertTrue(plateau.toString().contains("Plateau("));
+        assertEquals(plateau, plateau);
 
         Plateau plateau2 = new Plateau(sizeX, sizeY);
         assertNotEquals(plateau2, plateau); // Different ID
@@ -41,6 +42,7 @@ class PlateauTest {
         assertNotNull(plateauDto);
         assertEquals(sizeX, plateauDto.getSizeX());
         assertEquals(sizeY, plateauDto.getSizeY());
+
         PlateauDto plateauDto2 = new PlateauDto(sizeX, sizeY);
         assertEquals(plateauDto2, plateauDto);
 
