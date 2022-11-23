@@ -23,6 +23,11 @@ public interface MowerController {
     ResponseEntity<MowerDto> getMower(@PathVariable(value = "id") String mowerId);
 
 
+    /**
+     * @param mowerId  The ID of the mower to move
+     * @param commands A series of instructions telling the mower how to explore the plateau
+     * @brief Navigate the mower in the plateaud.
+     */
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
     @Operation(summary = "Move a mower with ID")
     @ResponseStatus(HttpStatus.OK)

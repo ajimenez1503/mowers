@@ -14,4 +14,3 @@ public interface MowerService {
 
     public Optional<Mower> moveMower(Mower mower, List<Command> commands);
 }
-
