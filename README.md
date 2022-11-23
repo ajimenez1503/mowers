@@ -181,12 +181,21 @@ docker login
 docker push ajimenez15/mower
 ```
 
+![img.png](img/imgDockerHub.png)
+
 ## Documentation
 
 The documentation is available using springdoc-openapi.
 Run the application `mvn spring-boot:run` and access to http://localhost:8080/swagger-ui/index.html
 
-![img.png](img/img.png)
+![img.png](img/imgDoc.png)
+
+## Continues Integration
+- Using GitHub actions `.github/workflows/ci.yml`
+- Each time there is a push into `master` branch:
+  - Build and test
+    ![img.png](img/imgCiTest.png)
+  - Push docker image into DockerHub
 
 ## Assumptions
 
