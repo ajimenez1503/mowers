@@ -208,7 +208,7 @@ docker run -p 8080:8080 mower
 
 ### Push the docker image into Dockerhub
 
-- Create repository: https://hub.docker.com/repository/docker/ajimenez15/mower
+- Repository: https://hub.docker.com/repository/docker/ajimenez15/mower
 
 ```
 docker tag mower ajimenez15/mower
@@ -233,7 +233,7 @@ Run the application `mvn spring-boot:run` and access to http://localhost:8080/sw
 - Each time there is a push into `master` branch:
     - Build and test
       ![img.png](img/imgCiTest.png)
-    - Push docker image into DockerHub
+    - Push docker image into DockerHub https://hub.docker.com/repository/docker/ajimenez15/mower
     - Static analysis with SonarCloud https://sonarcloud.io/project/overview?id=softwarejimenez_mowers
       ![img.png](img/imgSonarCloud.png)
 

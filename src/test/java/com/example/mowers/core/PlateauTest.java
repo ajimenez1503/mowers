@@ -111,7 +111,8 @@ class PlateauTest {
         Plateau plateau = new Plateau(sizeX, sizeY);
         assertNotNull(plateau);
 
-        assertFalse(plateau.isValidPosition(positionOutside));
+        assertFalse(plateau.isValidPosition(new Point(sizeX, sizeY - 1)));
+        assertFalse(plateau.isValidPosition(new Point(sizeX - 1, sizeY)));
     }
 
 }

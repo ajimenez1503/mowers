@@ -111,7 +111,7 @@ class MowerServiceImplTest {
     }
 
     @Test
-    void givenService_whenPlateauDoesNotExist_thenCreateMowerFails() {
+    void givenService_whenPlateauDoesNotExist_thenMoveMowerFails() {
         Mower mower = new Mower(invalidId, position, orientation);
         when(plateauService.getPlateau(invalidId)).thenReturn(Optional.empty());
 
@@ -120,7 +120,7 @@ class MowerServiceImplTest {
     }
 
     @Test
-    void givenService_whenEmptyCommands_thenCreateMower() {
+    void givenService_whenEmptyCommands_thenMoveMower() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         Mower mower = new Mower(plateau.getId(), position, orientation);
         when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
@@ -131,7 +131,7 @@ class MowerServiceImplTest {
     }
 
     @Test
-    void givenService_whenListCommands_thenCreateMower() {
+    void givenService_whenListCommands_thenMoveMower() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         Mower mower = new Mower(plateau.getId(), position, orientation);
         when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
@@ -144,12 +144,25 @@ class MowerServiceImplTest {
     }
 
     @Test
-    void givenService_whenMowerInTheBoundariesOfThePlateau_thenCreateMower() {
+    void givenService_whenMowerInTheBoundariesOfThePlateau_thenMoveMowerIsOmitted() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         Mower mower = new Mower(plateau.getId(), new Point(sizeX, sizeY), orientation);
         when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
 
         Optional<Mower> mowerResult = service.moveMower(new Mower(mower), Arrays.asList(Command.M, Command.M));
+        assertTrue(mowerResult.isPresent());
+        assertEquals(mower, mowerResult.get());
+    }
+
+    @Test
+    void givenService_whenMowerPositionIsBusy_thenMoveMowerIsOmitted() throws Exception {
+        Plateau plateau = new Plateau(sizeX, sizeY);
+        plateau.setPositionBusy(new Point(0, 1));
+        Mower mower = new Mower(plateau.getId(), new Point(0, 0), Orientation.N);
+
+        when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
+
+        Optional<Mower> mowerResult = service.moveMower(new Mower(mower), Arrays.asList(Command.M));
         assertTrue(mowerResult.isPresent());
         assertEquals(mower, mowerResult.get());
     }
