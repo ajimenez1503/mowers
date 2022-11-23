@@ -38,5 +38,5 @@ public interface MowerController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<MowerDto> moveMower(
             @PathVariable(value = "id") @NotBlank String mowerId,
-            @RequestBody @NotBlank @Pattern(regexp = "(L|M|R)*") String commands);
+            @RequestBody @NotBlank @Pattern(regexp = "[LMR]*") String commands);
 }
