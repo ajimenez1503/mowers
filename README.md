@@ -212,8 +212,8 @@ Run the application `mvn spring-boot:run` and access to http://localhost:8080/sw
     - Build and test
       ![img.png](img/imgCiTest.png)
     - Push docker image into DockerHub
-    - Static analysis with SonarCloud
-    -
+    - Static analysis with SonarCloud https://sonarcloud.io/project/overview?id=softwarejimenez_mowers
+      ![img.png](img/imgSonarCloud.png)
 
 ![img.png](img/imgCI.png)
 
