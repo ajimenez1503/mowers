@@ -41,29 +41,4 @@ public class Mower {
     public MowerDto getDto() {
         return new MowerDto(this.getPlateauId(), this.getPosition(), this.getOrientation());
     }
-
-    public Point getNextPosition(Command command) {
-        if (command == Command.M) {
-            switch (this.orientation) {
-                case N:
-                    return new Point((int) this.getPosition().getX(), (int) (this.getPosition().getY() + 1));
-                case S:
-                    return new Point((int) this.getPosition().getX(), (int) (this.getPosition().getY() - 1));
-                case E:
-                    return new Point((int) (this.getPosition().getX() + 1), (int) this.getPosition().getY());
-                case W:
-                    return new Point((int) (this.getPosition().getX() - 1), (int) this.getPosition().getY());
-            }
-        }
-        return this.getPosition();
-    }
-
-    public void execute(Command command) {
-        if (command.equals(Command.R) || command.equals(Command.L)) {
-            this.setOrientation(this.getOrientation().getNextOrientation(command));
-        }
-        if (command.equals(Command.M)) {
-            this.setPosition(this.getNextPosition(command));
-        }
-    }
 }

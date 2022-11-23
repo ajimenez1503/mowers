@@ -20,8 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -153,6 +152,75 @@ class MowerServiceImplTest {
         Optional<Mower> mowerResult = service.moveMower(new Mower(mower), Arrays.asList(Command.M, Command.M));
         assertTrue(mowerResult.isPresent());
         assertEquals(mower, mowerResult.get());
+    }
+
+    @Test
+    void givenMower_whenCommandL_thenGetNextPosition() {
+        Mower mower = new Mower(plateauId, position, orientation);
+        assertNotNull(mower);
+        assertEquals(mower.getPosition(), service.getNextPosition(mower, Command.L));
+    }
+
+    @Test
+    void givenMower_whenCommandR_thenGetNextPosition() {
+        Mower mower = new Mower(plateauId, position, orientation);
+        assertNotNull(mower);
+        assertEquals(mower.getPosition(), service.getNextPosition(mower, Command.R));
+    }
+
+    @Test
+    void givenMowerWithOrientationN_whenCommandM_thenGetNextPosition() {
+        Mower mower = new Mower(plateauId, position, Orientation.N);
+        assertNotNull(mower);
+        assertEquals(new Point((int) position.getX(), (int) (position.getY() + 1)), service.getNextPosition(mower, Command.M));
+    }
+
+    @Test
+    void givenMowerWithOrientationW_whenCommandM_thenGetNextPosition() {
+        Mower mower = new Mower(plateauId, position, Orientation.W);
+        assertNotNull(mower);
+        assertEquals(new Point((int) position.getX() - 1, (int) (position.getY())), service.getNextPosition(mower, Command.M));
+    }
+
+    @Test
+    void givenMowerWithOrientationS_whenCommandM_thenGetNextPosition() {
+        Mower mower = new Mower(plateauId, position, Orientation.S);
+        assertNotNull(mower);
+        assertEquals(new Point((int) position.getX(), (int) (position.getY() - 1)), service.getNextPosition(mower, Command.M));
+    }
+
+    @Test
+    void givenMowerWithOrientationE_whenCommandM_thenGetNextPosition() {
+        Mower mower = new Mower(plateauId, position, Orientation.E);
+        assertNotNull(mower);
+        assertEquals(new Point((int) position.getX() + 1, (int) (position.getY())), service.getNextPosition(mower, Command.M));
+    }
+
+    @Test
+    void givenMower_whenCommandM_thenExecute() {
+        Mower mower = new Mower(plateauId, position, orientation);
+        assertNotNull(mower);
+        service.execute(mower, Command.M);
+        assertEquals(new Point((int) position.getX(), (int) (position.getY() + 1)), mower.getPosition());
+        assertEquals(orientation, mower.getOrientation());
+    }
+
+    @Test
+    void givenMower_whenCommandR_thenExecute() {
+        Mower mower = new Mower(plateauId, position, orientation);
+        assertNotNull(mower);
+        service.execute(mower, Command.R);
+        assertEquals(position, mower.getPosition());
+        assertEquals(Orientation.E, mower.getOrientation());
+    }
+
+    @Test
+    void givenMower_whenCommandL_thenExecute() {
+        Mower mower = new Mower(plateauId, position, orientation);
+        assertNotNull(mower);
+        service.execute(mower, Command.L);
+        assertEquals(position, mower.getPosition());
+        assertEquals(Orientation.W, mower.getOrientation());
     }
 
 }

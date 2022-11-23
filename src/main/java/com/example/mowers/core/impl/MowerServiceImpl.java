@@ -70,13 +70,13 @@ public class MowerServiceImpl implements MowerService {
         Plateau plateau = plateauOptional.get();
         Point nextPosition;
         for (Command c : commands) {
-            nextPosition = mower.getNextPosition(c);
+            nextPosition = getNextPosition(mower, c);
             if (nextPosition.equals(mower.getPosition())) {
-                mower.execute(c);
+                execute(mower, c);
             } else if (plateau.isValidPosition(nextPosition) && plateau.isPositionAvailable(nextPosition)) {
                 try {
                     plateau.setPositionFree(mower.getPosition());
-                    mower.execute(c);
+                    execute(mower, c);
                     plateau.setPositionBusy(mower.getPosition());
                 } catch (Exception e) {
                     log.warn("The mower position {} is not available. Exception {}", nextPosition, e.getMessage());
@@ -86,5 +86,30 @@ public class MowerServiceImpl implements MowerService {
         }
 
         return Optional.of(mower);
+    }
+
+    public Point getNextPosition(Mower mower, Command command) {
+        if (command == Command.M) {
+            switch (mower.getOrientation()) {
+                case N:
+                    return new Point((int) mower.getPosition().getX(), (int) (mower.getPosition().getY() + 1));
+                case S:
+                    return new Point((int) mower.getPosition().getX(), (int) (mower.getPosition().getY() - 1));
+                case E:
+                    return new Point((int) (mower.getPosition().getX() + 1), (int) mower.getPosition().getY());
+                case W:
+                    return new Point((int) (mower.getPosition().getX() - 1), (int) mower.getPosition().getY());
+            }
+        }
+        return mower.getPosition();
+    }
+
+    public void execute(Mower mower, Command command) {
+        if (command.equals(Command.R) || command.equals(Command.L)) {
+            mower.setOrientation(mower.getOrientation().getNextOrientation(command));
+        }
+        if (command.equals(Command.M)) {
+            mower.setPosition(getNextPosition(mower, command));
+        }
     }
 }
