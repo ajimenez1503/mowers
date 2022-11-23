@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlateauTest {
+class PlateauTest {
 
     private int sizeX = 10;
     private int sizeY = 22;

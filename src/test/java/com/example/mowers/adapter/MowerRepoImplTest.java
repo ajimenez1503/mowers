@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MowerRepoImplTest {
+class MowerRepoImplTest {
     private MowerRepoImpl repo = new MowerRepoImpl();
     private String plateauId = "plateauId";
     private Point position = new Point(10, 22);

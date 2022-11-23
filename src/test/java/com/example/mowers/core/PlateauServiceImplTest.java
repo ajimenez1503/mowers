@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class PlateauServiceImplTest {
+class PlateauServiceImplTest {
     @Mock
     private PlateauRepo repo;
 
@@ -27,7 +27,7 @@ public class PlateauServiceImplTest {
     private int sizeX = 10, sizeY = 22;
 
     @Test
-    public void givenService_thenCreatePlateau() {
+    void givenService_thenCreatePlateau() {
         PlateauDto plateauDto = new PlateauDto(sizeX, sizeY);
         Plateau plateau = new Plateau(plateauDto);
         when(repo.createPlateau(plateauDto)).thenReturn(plateau);
@@ -38,7 +38,7 @@ public class PlateauServiceImplTest {
     }
 
     @Test
-    public void givenService_thenGetPlateau() {
+    void givenService_thenGetPlateau() {
         Optional<Plateau> plateau = Optional.of(new Plateau(sizeX, sizeY));
         when(repo.getPlateau(plateau.get().getId())).thenReturn(plateau);
 

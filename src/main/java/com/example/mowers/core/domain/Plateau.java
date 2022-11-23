@@ -17,7 +17,7 @@ public class Plateau {
 
     private final int sizeX;
     private final int sizeY;
-    private Availability availability[][];
+    private Availability[][] availability;
 
     public Plateau(int sizeX, int sizeY) {
         this.id = UUID.randomUUID().toString();

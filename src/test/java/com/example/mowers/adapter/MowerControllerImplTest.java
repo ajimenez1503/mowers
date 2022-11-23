@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class MowerControllerImplTest {
+class MowerControllerImplTest {
 
     String invalidID = "invalidId";
     @Mock
@@ -44,13 +44,13 @@ public class MowerControllerImplTest {
 
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
     }
 
     @Test
-    public void givenController_thenCreateMower() {
+    void givenController_thenCreateMower() {
         MowerDto mowerDto = new MowerDto(plateauId, position, orientation);
         Mower mowerResult = new Mower(mowerDto);
         when(service.createMower(mowerDto)).thenReturn(Optional.of(mowerResult));
@@ -61,7 +61,7 @@ public class MowerControllerImplTest {
     }
 
     @Test
-    public void givenController_whenServiceCannotCreateMower_thenCreateMowerConflict() {
+    void givenController_whenServiceCannotCreateMower_thenCreateMowerConflict() {
         MowerDto mowerDto = new MowerDto(plateauId, position, orientation);
         when(service.createMower(mowerDto)).thenReturn(Optional.empty());
 
@@ -70,7 +70,7 @@ public class MowerControllerImplTest {
     }
 
     @Test
-    public void givenController_whenMowerExists_thenGetMower() {
+    void givenController_whenMowerExists_thenGetMower() {
         Mower mower = new Mower(plateauId, position, orientation);
 
         when(service.getMower(mower.getId())).thenReturn(Optional.of(mower));
@@ -83,7 +83,7 @@ public class MowerControllerImplTest {
     }
 
     @Test
-    public void givenController_whenMowerDoesNotExist_thenGetMowerNotFound() {
+    void givenController_whenMowerDoesNotExist_thenGetMowerNotFound() {
         when(service.getMower(invalidID)).thenReturn(Optional.empty());
 
         ResponseEntity<MowerDto> result = controller.getMower(invalidID);
@@ -91,7 +91,7 @@ public class MowerControllerImplTest {
     }
 
     @Test
-    public void givenController_whenMowerDoesNotExist_thenMoveMowerNotFound() {
+    void givenController_whenMowerDoesNotExist_thenMoveMowerNotFound() {
         when(service.getMower(invalidID)).thenReturn(Optional.empty());
 
         ResponseEntity<MowerDto> result = controller.moveMower(invalidID, commands);
@@ -99,7 +99,7 @@ public class MowerControllerImplTest {
     }
 
     @Test
-    public void givenController_whenMowerDoesNotExist_thenMoveMowerOk() {
+    void givenController_whenMowerDoesNotExist_thenMoveMowerOk() {
         Mower mower = new Mower(plateauId, position, orientation);
 
         when(service.getMower(mower.getId())).thenReturn(Optional.of(mower));
@@ -113,7 +113,7 @@ public class MowerControllerImplTest {
     }
 
     @Test
-    public void givenController_whenMowerFailsMoving_thenMoveMowerConflict() {
+    void givenController_whenMowerFailsMoving_thenMoveMowerConflict() {
         Mower mower = new Mower(plateauId, position, orientation);
 
         when(service.getMower(mower.getId())).thenReturn(Optional.of(mower));
@@ -124,7 +124,7 @@ public class MowerControllerImplTest {
     }
 
     @Test
-    public void givenController_whenMowerExist_thenMoveMowerOk() {
+    void givenController_whenMowerExist_thenMoveMowerOk() {
         Mower mower = new Mower(plateauId, position, orientation);
 
         when(service.getMower(mower.getId())).thenReturn(Optional.of(mower));

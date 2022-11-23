@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class PlateauRepoImpl implements PlateauRepo {
 
-    private Map<String, Plateau> plateauMap = new HashMap<String, Plateau>();
+    private Map<String, Plateau> plateauMap = new HashMap<>();
 
     @Override
     public Plateau createPlateau(PlateauDto plateau) {

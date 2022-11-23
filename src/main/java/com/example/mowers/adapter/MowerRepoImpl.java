@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class MowerRepoImpl implements MowerRepo {
 
-    private Map<String, Mower> mowerMap = new HashMap<String, Mower>();
+    private Map<String, Mower> mowerMap = new HashMap<>();
 
     @Override
     public Mower createMower(MowerDto mower) {

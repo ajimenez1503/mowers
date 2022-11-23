@@ -15,7 +15,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -54,7 +53,7 @@ public class MowerControllerImpl implements MowerController {
     public ResponseEntity<MowerDto> moveMower(String mowerId, String commands) {
         Optional<Mower> mower = mowerService.getMower(mowerId);
         if (mower.isPresent()) {
-            List<Command> commandList = commands.codePoints().mapToObj(c -> Command.valueOf(String.valueOf((char) c))).collect(Collectors.toList());
+            List<Command> commandList = commands.codePoints().mapToObj(c -> Command.valueOf(String.valueOf((char) c))).toList();
             Optional<Mower> mowerResult = mowerService.moveMower(mower.get(), commandList);
             if (mowerResult.isPresent()) {
                 log.info("Mower {} has been moved", mowerResult.get());

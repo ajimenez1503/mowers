@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class MowerServiceImplTest {
+class MowerServiceImplTest {
 
     @Mock
     private MowerRepo repo;
@@ -49,7 +49,7 @@ public class MowerServiceImplTest {
     private List<Command> commands = Arrays.asList(Command.L, Command.L, Command.M, Command.R, Command.M);
 
     @Test
-    public void givenService_thenCreateMower() {
+    void givenService_thenCreateMower() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         MowerDto mowerDto = new MowerDto(plateau.getId(), position, orientation);
         Mower mower = new Mower(mowerDto);
@@ -63,7 +63,7 @@ public class MowerServiceImplTest {
     }
 
     @Test
-    public void givenService_whenPlateauDoesNotExist_thenCreateMower() {
+    void givenService_whenPlateauDoesNotExist_thenCreateMower() {
         MowerDto mowerDto = new MowerDto(invalidId, position, orientation);
         when(plateauService.getPlateau(invalidId)).thenReturn(Optional.empty());
 
@@ -72,7 +72,7 @@ public class MowerServiceImplTest {
     }
 
     @Test
-    public void givenService_thenGetMower() {
+    void givenService_thenGetMower() {
         Optional<Mower> mower = Optional.of(new Mower(plateauId, position, orientation));
         when(repo.getMower(any())).thenReturn(mower);
 
@@ -81,7 +81,7 @@ public class MowerServiceImplTest {
     }
 
     @Test
-    public void givenService_whenMowerPositionOutside_thenCreateMowerFails() {
+    void givenService_whenMowerPositionOutside_thenCreateMowerFails() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         MowerDto mowerDto = new MowerDto(plateau.getId(), positionOutside, orientation);
 
@@ -92,7 +92,7 @@ public class MowerServiceImplTest {
     }
 
     @Test
-    public void givenService_whenMowerPositionBusy_thenCreateMowerFails() throws Exception {
+    void givenService_whenMowerPositionBusy_thenCreateMowerFails() throws Exception {
         Plateau plateau = new Plateau(sizeX, sizeY);
         plateau.setPositionBusy(position);
         MowerDto mowerDto = new MowerDto(plateau.getId(), position, orientation);
@@ -104,7 +104,7 @@ public class MowerServiceImplTest {
     }
 
     @Test
-    public void givenService_whenListCommandNull_thenMoveMowerFails() {
+    void givenService_whenListCommandNull_thenMoveMowerFails() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         Mower mower = new Mower(plateau.getId(), position, orientation);
         Optional<Mower> mowerResult = service.moveMower(new Mower(mower), null);
@@ -112,7 +112,7 @@ public class MowerServiceImplTest {
     }
 
     @Test
-    public void givenService_whenPlateauDoesNotExist_thenCreateMowerFails() {
+    void givenService_whenPlateauDoesNotExist_thenCreateMowerFails() {
         Mower mower = new Mower(invalidId, position, orientation);
         when(plateauService.getPlateau(invalidId)).thenReturn(Optional.empty());
 
@@ -121,7 +121,7 @@ public class MowerServiceImplTest {
     }
 
     @Test
-    public void givenService_whenEmptyCommands_thenCreateMower() {
+    void givenService_whenEmptyCommands_thenCreateMower() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         Mower mower = new Mower(plateau.getId(), position, orientation);
         when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
@@ -132,7 +132,7 @@ public class MowerServiceImplTest {
     }
 
     @Test
-    public void givenService_whenListCommands_thenCreateMower() {
+    void givenService_whenListCommands_thenCreateMower() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         Mower mower = new Mower(plateau.getId(), position, orientation);
         when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
@@ -145,7 +145,7 @@ public class MowerServiceImplTest {
     }
 
     @Test
-    public void givenService_whenMowerInTheBoundariesOfThePlateau_thenCreateMower() {
+    void givenService_whenMowerInTheBoundariesOfThePlateau_thenCreateMower() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         Mower mower = new Mower(plateau.getId(), new Point(sizeX, sizeY), orientation);
         when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));

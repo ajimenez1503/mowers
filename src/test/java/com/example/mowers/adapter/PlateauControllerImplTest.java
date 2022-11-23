@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class PlateauControllerImplTest {
+class PlateauControllerImplTest {
     @Mock
     private PlateauService service;
 
@@ -31,13 +31,13 @@ public class PlateauControllerImplTest {
     private int sizeX = 10, sizeY = 25;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
     }
 
     @Test
-    public void givenController_thenCreatePlateau() {
+    void givenController_thenCreatePlateau() {
         PlateauDto plateauDto = new PlateauDto(sizeX, sizeY);
         Plateau plateauResult = new Plateau(plateauDto);
         when(service.createPlateau(plateauDto)).thenReturn(Optional.of(plateauResult));
@@ -48,7 +48,7 @@ public class PlateauControllerImplTest {
     }
 
     @Test
-    public void givenController_whenServiceCreatePlateauFail_thenCreatePlateauConflict() {
+    void givenController_whenServiceCreatePlateauFail_thenCreatePlateauConflict() {
         PlateauDto plateauDto = new PlateauDto(sizeX, sizeY);
         when(service.createPlateau(plateauDto)).thenReturn(Optional.empty());
 
@@ -57,7 +57,7 @@ public class PlateauControllerImplTest {
     }
 
     @Test
-    public void givenController_whenPlateauExist_thenGetPlateau() {
+    void givenController_whenPlateauExist_thenGetPlateau() {
         Plateau plateau = new Plateau(sizeX, sizeY);
 
         when(service.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
@@ -69,7 +69,7 @@ public class PlateauControllerImplTest {
     }
 
     @Test
-    public void givenController_whenPlateauDoesNotExist_thenGetPlateauNotFound() {
+    void givenController_whenPlateauDoesNotExist_thenGetPlateauNotFound() {
         String invalidId = "invalidId";
         when(service.getPlateau(invalidId)).thenReturn(Optional.empty());
 

@@ -21,7 +21,7 @@ class MowersApplicationTests {
 
     @Test
     void contextLoads() {
-
+        assertNotNull(restTemplate);
     }
 
     @Test

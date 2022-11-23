@@ -10,7 +10,7 @@ import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MowerTest {
+class MowerTest {
 
     private String plateauId = "plateauId";
     private Point position = new Point(10, 22);

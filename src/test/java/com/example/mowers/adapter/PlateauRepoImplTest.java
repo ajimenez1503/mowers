@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlateauRepoImplTest {
+class PlateauRepoImplTest {
 
     private PlateauRepoImpl repo = new PlateauRepoImpl();
 
