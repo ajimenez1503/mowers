@@ -20,8 +20,8 @@ import java.util.Optional;
 @Slf4j
 public class MowerServiceImpl implements MowerService {
 
-    final private MowerRepo mowerRepo;
-    final private PlateauService plateauService;
+    private final MowerRepo mowerRepo;
+    private final PlateauService plateauService;
 
 
     @Override

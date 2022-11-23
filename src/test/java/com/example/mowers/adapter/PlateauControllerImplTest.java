@@ -48,6 +48,15 @@ public class PlateauControllerImplTest {
     }
 
     @Test
+    public void givenController_whenServiceCreatePlateauFail_thenCreatePlateauConflict() {
+        PlateauDto plateauDto = new PlateauDto(sizeX, sizeY);
+        when(service.createPlateau(plateauDto)).thenReturn(Optional.empty());
+
+        ResponseEntity<String> result = controller.createPlateau(plateauDto);
+        assertEquals(HttpStatus.CONFLICT, result.getStatusCode());
+    }
+
+    @Test
     public void givenController_whenPlateauExist_thenGetPlateau() {
         Plateau plateau = new Plateau(sizeX, sizeY);
 

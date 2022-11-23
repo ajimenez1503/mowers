@@ -21,6 +21,12 @@ class MowersApplicationTests {
 
     @Test
     void contextLoads() {
+
+    }
+
+    @Test
+    void main() {
+        MowersApplication.main(new String[]{});
     }
 
     @Test

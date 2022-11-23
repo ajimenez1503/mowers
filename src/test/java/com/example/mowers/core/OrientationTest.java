@@ -35,4 +35,10 @@ public class OrientationTest {
         assertEquals(Orientation.N, orientation.getNextOrientation(Command.L));
         assertEquals(Orientation.S, orientation.getNextOrientation(Command.R));
     }
+
+    @Test
+    void givenOrientationN_whenCommandM_thenChangeOrientation() {
+        Orientation orientation = Orientation.N;
+        assertEquals(orientation, orientation.getNextOrientation(Command.M));
+    }
 }

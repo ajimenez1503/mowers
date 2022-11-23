@@ -53,6 +53,7 @@ Application to control mowers through an API.
   ```
 
 #### GET `/plateau/{id}`
+
 - Description: Get the plateau by Id
 - Response
     - Status: 200 Ok
@@ -72,6 +73,7 @@ Application to control mowers through an API.
 ### Mower
 
 #### POST `/mower`
+
 - Description: Create a mower
 - Header: `Content-Type: application/json`
 - Body:
@@ -104,6 +106,7 @@ Application to control mowers through an API.
   ```
 
 #### GET `/mower/{id}`
+
 - Description: Get the mower by Id
 - Response
     - Status: 200 Ok
@@ -125,6 +128,7 @@ Application to control mowers through an API.
   ```
 
 #### PUT `/mower/{id}`
+
 - Description: Move the mower by Id
 - Body: List of movements.
     - Example: `LMLMLMLMM`
@@ -163,21 +167,29 @@ mvn spring-boot:run
 ```
 
 ## Build and run using docker
+
 - Build the application:
+
 ```
 mvn package -B
 ```
+
 - Build the docker image:
+
 ```
 docker build -t mower .
 ```
+
 - Run the docker image
+
 ```
 docker run -p 8080:8080 mower
 ```
 
 ### Push the docker image into Dockerhub
- - Create repository: https://hub.docker.com/repository/docker/ajimenez15/mower
+
+- Create repository: https://hub.docker.com/repository/docker/ajimenez15/mower
+
 ```
 docker tag mower ajimenez15/mower
 docker login
@@ -194,13 +206,15 @@ Run the application `mvn spring-boot:run` and access to http://localhost:8080/sw
 ![img.png](img/imgDoc.png)
 
 ## Continues Integration
+
 - Using GitHub actions `.github/workflows/ci.yml`
 - Each time there is a push into `master` branch:
-  - Build and test
-    ![img.png](img/imgCiTest.png)
-  - Push docker image into DockerHub
-  - Static analysis with Sonar
-  - 
+    - Build and test
+      ![img.png](img/imgCiTest.png)
+    - Push docker image into DockerHub
+    - Static analysis with SonarCloud
+    -
+
 ![img.png](img/imgCI.png)
 
 ## Assumptions

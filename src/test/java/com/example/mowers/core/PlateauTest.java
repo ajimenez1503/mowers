@@ -29,6 +29,10 @@ public class PlateauTest {
         assertEquals(sizeX + 1, plateau.getAvailability().length);
         Arrays.stream(plateau.getAvailability()).forEach(elements -> assertEquals(sizeY + 1, elements.length));
         Arrays.stream(plateau.getAvailability()).forEach(elements -> Arrays.stream(elements).forEach(element -> assertEquals(Availability.FREE, element)));
+        assertTrue(plateau.toString().contains("Plateau("));
+
+        Plateau plateau2 = new Plateau(sizeX, sizeY);
+        assertNotEquals(plateau2, plateau); // Different ID
     }
 
     @Test
@@ -37,6 +41,8 @@ public class PlateauTest {
         assertNotNull(plateauDto);
         assertEquals(sizeX, plateauDto.getSizeX());
         assertEquals(sizeY, plateauDto.getSizeY());
+        PlateauDto plateauDto2 = new PlateauDto(sizeX, sizeY);
+        assertEquals(plateauDto2, plateauDto);
 
         Plateau plateau = new Plateau(plateauDto);
         assertNotNull(plateau);
@@ -51,9 +57,9 @@ public class PlateauTest {
         Plateau plateau = new Plateau(sizeX, sizeY);
         assertNotNull(plateau);
 
-        PlateauDto plateauDto = plateau.getDto();
-        assertEquals(plateauDto.getSizeX(), plateau.getSizeX());
-        assertEquals(plateauDto.getSizeY(), plateau.getSizeY());
+        PlateauDto plateauDtoCopy = plateau.getDto();
+        assertEquals(plateauDtoCopy.getSizeX(), plateau.getSizeX());
+        assertEquals(plateauDtoCopy.getSizeY(), plateau.getSizeY());
     }
 
     @Test
@@ -92,7 +98,7 @@ public class PlateauTest {
     }
 
     @Test
-    void givenPlateau_whenPositionInside_thenisValidPositionSuccess() {
+    void givenPlateau_whenPositionInside_thenIsValidPositionSuccess() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         assertNotNull(plateau);
 
@@ -100,7 +106,7 @@ public class PlateauTest {
     }
 
     @Test
-    void givenPlateau_whenPositionOutside_thenisValidPositionFail() {
+    void givenPlateau_whenPositionOutside_thenIsValidPositionFail() {
         Plateau plateau = new Plateau(sizeX, sizeY);
         assertNotNull(plateau);
 

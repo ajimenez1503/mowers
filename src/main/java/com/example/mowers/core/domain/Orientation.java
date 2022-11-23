@@ -13,7 +13,7 @@ public enum Orientation {
     public Orientation getNextOrientation(Command command) {
         if (command == Command.L) {
             return map.get((this.ordinal() + 1) % Orientation.values().length);
-        } else if (command == Command.R) {
+        } if (command == Command.R) {
             return map.get((this.ordinal() - 1 + Orientation.values().length) % Orientation.values().length);
         }
         return this;

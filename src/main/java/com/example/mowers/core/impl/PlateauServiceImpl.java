@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class PlateauServiceImpl implements PlateauService {
 
-    final private PlateauRepo plateauRepo;
+    private final PlateauRepo plateauRepo;
 
     @Override
     public Optional<Plateau> createPlateau(PlateauDto plateau) {

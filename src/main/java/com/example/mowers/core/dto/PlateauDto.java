@@ -21,6 +21,7 @@ public class PlateauDto {
     private int sizeX;
     @NotNull
     @Positive
-    @NotEmpty @Schema(example = "25")
+    @NotEmpty
+    @Schema(example = "25")
     private int sizeY;
 }

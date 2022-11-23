@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MowerTest {
 
@@ -25,6 +24,9 @@ public class MowerTest {
         assertEquals(plateauId, mower.getPlateauId());
         assertEquals(position, mower.getPosition());
         assertEquals(orientation, mower.getOrientation());
+
+        Mower mower2 = new Mower(plateauId, position, orientation);
+        assertNotEquals(mower2, mower); // Different ID
     }
 
     @Test
@@ -44,13 +46,15 @@ public class MowerTest {
 
     @Test
     void givenMower_getMowerDto() {
+        MowerDto mowerDto = new MowerDto(plateauId, position, orientation);
         Mower mower = new Mower(plateauId, position, orientation);
         assertNotNull(mower);
 
-        MowerDto mowerDto = mower.getDto();
-        assertEquals(mowerDto.getPlateauId(), mower.getPlateauId());
-        assertEquals(mowerDto.getPosition(), mower.getPosition());
-        assertEquals(mowerDto.getOrientation(), mower.getOrientation());
+        MowerDto mowerDtoCopy = mower.getDto();
+        assertEquals(mowerDtoCopy.getPlateauId(), mower.getPlateauId());
+        assertEquals(mowerDtoCopy.getPosition(), mower.getPosition());
+        assertEquals(mowerDtoCopy.getOrientation(), mower.getOrientation());
+        assertEquals(mowerDto, mowerDtoCopy);
     }
 
     @Test

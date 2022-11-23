@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class MowerControllerImpl implements MowerController {
 
-    final private MowerService mowerService;
+    private final MowerService mowerService;
 
     @Override
     public ResponseEntity<String> createMower(MowerDto mowerRequest) {

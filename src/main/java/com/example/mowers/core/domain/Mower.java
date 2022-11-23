@@ -1,7 +1,10 @@
 package com.example.mowers.core.domain;
 
 import com.example.mowers.core.dto.MowerDto;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.awt.*;
 import java.util.UUID;
@@ -40,30 +43,26 @@ public class Mower {
     }
 
     public Point getNextPosition(Command command) {
-        Point position = new Point(this.getPosition());
         if (command == Command.M) {
             switch (this.orientation) {
                 case N:
-                    position.setLocation(position.getX(), position.getY() + 1);
-                    break;
+                    return new Point((int) this.getPosition().getX(), (int) (this.getPosition().getY() + 1));
                 case S:
-                    position.setLocation(position.getX(), position.getY() - 1);
-                    break;
+                    return new Point((int) this.getPosition().getX(), (int) (this.getPosition().getY() - 1));
                 case E:
-                    position.setLocation(position.getX() + 1, position.getY());
-                    break;
+                    return new Point((int) (this.getPosition().getX() + 1), (int) this.getPosition().getY());
                 case W:
-                    position.setLocation(position.getX() - 1, position.getY());
-                    break;
+                    return new Point((int) (this.getPosition().getX() - 1), (int) this.getPosition().getY());
             }
         }
-        return position;
+        return this.getPosition();
     }
 
     public void execute(Command command) {
         if (command.equals(Command.R) || command.equals(Command.L)) {
             this.setOrientation(this.getOrientation().getNextOrientation(command));
-        } else if (command.equals(Command.M)) {
+        }
+        if (command.equals(Command.M)) {
             this.setPosition(this.getNextPosition(command));
         }
     }

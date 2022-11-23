@@ -19,7 +19,7 @@ import java.util.Optional;
 @Slf4j
 public class PlateauControllerImpl implements PlateauController {
 
-    final private PlateauService plateauService;
+    private final PlateauService plateauService;
 
     @Override
     public ResponseEntity<String> createPlateau(PlateauDto plateauRequest) {

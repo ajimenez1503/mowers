@@ -1,21 +1,22 @@
 package com.example.mowers.core.domain;
 
 import com.example.mowers.core.dto.PlateauDto;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.awt.*;
 import java.util.Arrays;
 import java.util.UUID;
 
 @Getter
-@Setter
 @EqualsAndHashCode
 @ToString
 public class Plateau {
     private final String id;
 
-    private int sizeX;
-    private int sizeY;
+    private final int sizeX;
+    private final int sizeY;
     private Availability availability[][];
 
     public Plateau(int sizeX, int sizeY) {
