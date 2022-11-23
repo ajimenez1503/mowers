@@ -41,7 +41,7 @@ Application to control mowers through an API.
 - Response
     - Status: 201 CREATED
         - Location: `http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d`
-        - Body:
+        - Body `application/json`::
           ```json
           {
               "upperRightXCoordinate" :10,
@@ -64,7 +64,7 @@ Application to control mowers through an API.
 - Description: Get the plateau by Id
 - Response
     - Status: 200 Ok
-        - Body:
+        - Body `application/json`::
             ```json
                 {
                     "upperRightYCoordinate" :10,
@@ -97,7 +97,7 @@ Application to control mowers through an API.
 - Response
     - Status: 201 CREATED
         - Location: `http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d`
-            - Body:
+            - Body `application/json`: 
               ```json
                 {
                     "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
@@ -128,7 +128,7 @@ Application to control mowers through an API.
 - Description: Get the mower by Id
 - Response
     - Status: 200 Ok
-        - Body:
+        - Body `application/json`:
           ```json
             {
                 "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
@@ -148,11 +148,12 @@ Application to control mowers through an API.
 #### PUT `/mower/{id}`
 
 - Description: Move the mower by Id
+- Header: `Content-Type: text/plain`
 - Body: List of movements.
     - Example: `LMLMLMLMM`
 - Response
     - Status: 200 Ok
-        - Body:
+        - Body `application/json`:
           ```json
             {
                 "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
