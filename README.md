@@ -1,3 +1,5 @@
+![Build](https://github.com/softwarejimenez/mowers/actions/workflows/ci.yml/badge.svg)
+
 # mowers
 
 Application to control mowers through an API.
