@@ -109,6 +109,7 @@ class PlateauTest {
         assertNotNull(plateau);
 
         assertTrue(plateau.isValidPosition(positionInside));
+        assertTrue(plateau.isValidPosition(new Point(0, 0)));
     }
 
     @Test
@@ -120,7 +121,6 @@ class PlateauTest {
         assertFalse(plateau.isValidPosition(new Point(sizeX - 1, sizeY)));
         assertFalse(plateau.isValidPosition(new Point(-1, sizeY)));
         assertFalse(plateau.isValidPosition(new Point(sizeX, -1)));
-
     }
 
 }
