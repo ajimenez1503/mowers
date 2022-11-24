@@ -7,15 +7,15 @@ import com.example.mowers.core.dto.MowerDto;
 import com.example.mowers.port.MowerRepo;
 import com.example.mowers.port.MowerService;
 import com.example.mowers.port.PlateauService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 @Slf4j
 public class MowerServiceImpl implements MowerService {
@@ -25,55 +25,51 @@ public class MowerServiceImpl implements MowerService {
 
 
     @Override
-    public Optional<Mower> createMower(MowerDto mower) {
+    public Optional<Mower> createMower(MowerDto mowerRequest) {
         // Ensure the plateau ID is valid
-        Optional<Plateau> plateauOptional = plateauService.getPlateau(mower.getPlateauId());
+        Optional<Plateau> plateauOptional = plateauService.getPlateau(mowerRequest.getPlateauId());
         if (plateauOptional.isEmpty()) {
-            log.warn("Plateau Id {} does not exits", mower.getPlateauId());
+            log.warn("Plateau Id {} does not exits", mowerRequest.getPlateauId());
             return Optional.empty();
         }
         Plateau plateau = plateauOptional.get();
-        if (!plateau.isValidPosition(mower.getPosition())) {
-            log.warn("The mower position {} is not valid", mower.getPosition());
+        if (!plateau.isValidPosition(mowerRequest.getPosition())) {
+            log.warn("The new mower position {} is not valid", mowerRequest.getPosition());
             return Optional.empty();
         }
-        if (!plateau.isPositionAvailable(mower.getPosition())) {
-            log.warn("The mower position {} is not available", mower.getPosition());
+        if (!plateau.isPositionAvailable(mowerRequest.getPosition())) {
+            log.warn("The new mower position {} is not available", mowerRequest.getPosition());
             return Optional.empty();
         }
         try {
-            plateau.setPositionBusy(mower.getPosition());
+            plateau.setPositionBusy(mowerRequest.getPosition());
         } catch (Exception e) {
-            log.warn("The mower position {} is not available. Exception {}", mower.getPosition(), e.getMessage());
+            log.warn("The mower position {} is not available. Exception {}", mowerRequest.getPosition(), e.getMessage());
             return Optional.empty();
         }
 
-        return Optional.of(mowerRepo.createMower(mower));
+        return Optional.of(mowerRepo.createMower(mowerRequest));
     }
 
     @Override
-    public Optional<Mower> getMower(String id) {
-        return mowerRepo.getMower(id);
+    public Optional<Mower> getMower(String mowerId) {
+        return mowerRepo.getMower(mowerId);
     }
 
     @Override
     public Optional<Mower> moveMower(Mower mower, List<Command> commands) {
-        if (commands == null) {
-            log.warn("Commands {} is not valid");
-            return Optional.empty();
-        }
         Optional<Plateau> plateauOptional = plateauService.getPlateau(mower.getPlateauId());
         if (plateauOptional.isEmpty()) {
             log.warn("Plateau Id {} does not exits", mower.getPlateauId());
             return Optional.empty();
         }
         Plateau plateau = plateauOptional.get();
-        Point nextPosition;
         for (Command c : commands) {
-            nextPosition = getNextPosition(mower, c);
+            Point nextPosition = getNextPosition(mower, c);
             if (nextPosition.equals(mower.getPosition())) {
                 execute(mower, c);
             } else if (plateau.isValidPosition(nextPosition) && plateau.isPositionAvailable(nextPosition)) {
+                // nextPosition is available
                 try {
                     plateau.setPositionFree(mower.getPosition());
                     execute(mower, c);

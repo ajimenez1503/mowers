@@ -14,13 +14,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -99,14 +101,6 @@ class MowerServiceImplTest {
         when(plateauService.getPlateau(plateau.getId())).thenReturn(Optional.of(plateau));
 
         Optional<Mower> mowerResult = service.createMower(mowerDto);
-        assertTrue(mowerResult.isEmpty());
-    }
-
-    @Test
-    void givenService_whenListCommandNull_thenMoveMowerFails() {
-        Plateau plateau = new Plateau(sizeX, sizeY);
-        Mower mower = new Mower(plateau.getId(), position, orientation);
-        Optional<Mower> mowerResult = service.moveMower(new Mower(mower), null);
         assertTrue(mowerResult.isEmpty());
     }
 

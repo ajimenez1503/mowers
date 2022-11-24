@@ -26,7 +26,7 @@ public class PlateauControllerImpl implements PlateauController {
         Optional<Plateau> plateauResult = plateauService.createPlateau(plateauRequest);
         if (plateauResult.isPresent()) {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(plateauResult.get().getId()).toUri();
-            log.info("Created Plateau with ID {} and URL {} ", plateauResult.get().getId(), location);
+            log.info("Created Plateau with ID {}, accessible by URL {}", plateauResult.get().getId(), location);
             return ResponseEntity.created(location).body(plateauResult.get().getDto());
         } else {
             log.warn("The Plateau {} is not valid", plateauRequest);
@@ -35,14 +35,14 @@ public class PlateauControllerImpl implements PlateauController {
     }
 
     @Override
-    public ResponseEntity<PlateauDto> getPlateau(String id) {
-        Optional<Plateau> plateau = plateauService.getPlateau(id);
+    public ResponseEntity<PlateauDto> getPlateau(String plateauId) {
+        Optional<Plateau> plateau = plateauService.getPlateau(plateauId);
         if (plateau.isPresent()) {
             PlateauDto plateauResult = plateau.get().getDto();
-            log.info("Get Plateau {} ", plateauResult);
+            log.info("Get Plateau {}", plateauResult);
             return new ResponseEntity<>(plateauResult, HttpStatus.OK);
         } else {
-            log.info("Plateau with ID {} not found ", id);
+            log.info("Plateau with ID {} not found", plateauId);
             return ResponseEntity.notFound().build();
         }
     }

@@ -5,10 +5,12 @@ import com.example.mowers.core.domain.Orientation;
 import com.example.mowers.core.dto.MowerDto;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MowerRepoImplTest {
     private MowerRepoImpl repo = new MowerRepoImpl();

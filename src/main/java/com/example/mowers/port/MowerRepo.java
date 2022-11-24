@@ -6,7 +6,7 @@ import com.example.mowers.core.dto.MowerDto;
 import java.util.Optional;
 
 public interface MowerRepo {
-    Mower createMower(MowerDto mower);
+    Mower createMower(MowerDto mowerRequest);
 
-    Optional<Mower> getMower(String id);
+    Optional<Mower> getMower(String mowerId);
 }

@@ -8,7 +8,8 @@ public enum Orientation {
     S,
     E;
 
-    private static final Map<Integer, Orientation> map = Map.of(0, N, 1, W, 2, S, 3, E);
+    private static final Map<Integer, Orientation> map =
+            Map.of(N.ordinal(), N, W.ordinal(), W, S.ordinal(), S, E.ordinal(), E);
 
     public Orientation getNextOrientation(Command command) {
         if (command == Command.L) {

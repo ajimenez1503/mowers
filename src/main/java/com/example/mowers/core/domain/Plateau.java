@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.Arrays;
 import java.util.UUID;
 

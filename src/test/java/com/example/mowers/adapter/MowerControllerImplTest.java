@@ -17,7 +17,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

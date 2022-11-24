@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MowerService {
-    Optional<Mower> createMower(MowerDto mower);
+    Optional<Mower> createMower(MowerDto mowerRequest);
 
-    Optional<Mower> getMower(String id);
+    Optional<Mower> getMower(String mowerId);
 
     public Optional<Mower> moveMower(Mower mower, List<Command> commands);
 }

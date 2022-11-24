@@ -29,10 +29,10 @@ public class MowerControllerImpl implements MowerController {
 
         if (mowerResult.isPresent()) {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(mowerResult.get().getId()).toUri();
-            log.info("Created Mower with ID {} and URL {} ", mowerResult.get().getId(), location);
+            log.info("Created Mower with ID {}, accessible by URL {}", mowerResult.get().getId(), location);
             return ResponseEntity.created(location).body(mowerResult.get().getDto());
         } else {
-            log.warn("The mower {} is not valid ", mowerRequest);
+            log.warn("The mower {} is not valid", mowerRequest);
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
@@ -41,10 +41,10 @@ public class MowerControllerImpl implements MowerController {
     public ResponseEntity<MowerDto> getMower(String mowerId) {
         Optional<Mower> mower = mowerService.getMower(mowerId);
         if (mower.isPresent()) {
-            log.info("Get Mower {} ", mower);
+            log.info("Get Mower {}", mower);
             return new ResponseEntity<>(mower.get().getDto(), HttpStatus.OK);
         } else {
-            log.info("Mower with ID {} not found ", mowerId);
+            log.info("Mower with ID {} not found", mowerId);
             return ResponseEntity.notFound().build();
         }
     }
@@ -63,7 +63,7 @@ public class MowerControllerImpl implements MowerController {
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
             }
         } else {
-            log.info("Mower with ID {} not found ", mowerId);
+            log.info("Mower with ID {} not found", mowerId);
             return ResponseEntity.notFound().build();
         }
     }

@@ -2,11 +2,16 @@ package com.example.mowers.core.dto;
 
 import com.example.mowers.core.domain.Orientation;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.awt.*;
+import java.awt.Point;
 
 @Getter
 @Setter

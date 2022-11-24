@@ -15,15 +15,15 @@ public class MowerRepoImpl implements MowerRepo {
     private Map<String, Mower> mowerMap = new HashMap<>();
 
     @Override
-    public Mower createMower(MowerDto mower) {
-        Mower mowerToSave = new Mower(mower);
+    public Mower createMower(MowerDto mowerRequest) {
+        Mower newMower = new Mower(mowerRequest);
 
-        mowerMap.put(mowerToSave.getId(), mowerToSave);
-        return mowerToSave;
+        mowerMap.put(newMower.getId(), newMower);
+        return newMower;
     }
 
     @Override
-    public Optional<Mower> getMower(String id) {
-        return Optional.ofNullable(mowerMap.get(id));
+    public Optional<Mower> getMower(String mowerId) {
+        return Optional.ofNullable(mowerMap.get(mowerId));
     }
 }

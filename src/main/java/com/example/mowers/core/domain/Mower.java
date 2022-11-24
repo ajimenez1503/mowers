@@ -1,30 +1,25 @@
 package com.example.mowers.core.domain;
 
 import com.example.mowers.core.dto.MowerDto;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.UUID;
 
 @Getter
 @Setter
 @EqualsAndHashCode
+@AllArgsConstructor
 @ToString
 public class Mower {
     private final String id;
     private final String plateauId;
     private Point position;
     private Orientation orientation;
-
-    private Mower(String mowerId, String plateauId, Point position, Orientation orientation) {
-        this.id = mowerId;
-        this.plateauId = plateauId;
-        this.position = position;
-        this.orientation = orientation;
-    }
 
     public Mower(String plateauId, Point position, Orientation orientation) {
         this(UUID.randomUUID().toString(), plateauId, position, orientation);

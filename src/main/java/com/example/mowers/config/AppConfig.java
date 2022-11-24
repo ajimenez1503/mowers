@@ -20,7 +20,7 @@ public class AppConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Mowers API")
-                        .description("Application to control mowers through an API.")
+                        .description("Application to control mowers through an API")
                         .version("v0.1"))
                 .externalDocs(new ExternalDocumentation()
                         .description("GitHub")

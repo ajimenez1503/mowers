@@ -5,9 +5,11 @@ import com.example.mowers.core.domain.Orientation;
 import com.example.mowers.core.dto.MowerDto;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
+import java.awt.Point;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class MowerTest {
 

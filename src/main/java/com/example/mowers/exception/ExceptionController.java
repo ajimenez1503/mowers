@@ -10,7 +10,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -24,12 +23,14 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
      * @param request
      */
     @ExceptionHandler(ConstraintViolationException.class)
-    protected ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, HttpServletRequest request) {
+    protected ResponseEntity<Object> handleConstraintViolationException(
+            ConstraintViolationException ex,
+            HttpServletRequest request) {
         try {
             List<String> messages = ex.getConstraintViolations().stream().map(ConstraintViolation::getMessage).toList();
             return new ResponseEntity<>(messages, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new ResponseEntity<>(Arrays.asList(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

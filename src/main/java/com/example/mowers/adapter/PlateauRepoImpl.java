@@ -15,15 +15,15 @@ public class PlateauRepoImpl implements PlateauRepo {
     private Map<String, Plateau> plateauMap = new HashMap<>();
 
     @Override
-    public Plateau createPlateau(PlateauDto plateau) {
-        Plateau plateauToSave = new Plateau(plateau);
+    public Plateau createPlateau(PlateauDto plateauRequest) {
+        Plateau newPlateau = new Plateau(plateauRequest);
 
-        plateauMap.put(plateauToSave.getId(), plateauToSave);
-        return plateauToSave;
+        plateauMap.put(newPlateau.getId(), newPlateau);
+        return newPlateau;
     }
 
     @Override
-    public Optional<Plateau> getPlateau(String id) {
-        return Optional.ofNullable(plateauMap.get(id));
+    public Optional<Plateau> getPlateau(String plateauId) {
+        return Optional.ofNullable(plateauMap.get(plateauId));
     }
 }
