@@ -34,24 +34,24 @@ Application to control mowers through an API.
 - Body:
   ```json
   { 
-      "upperRightXCoordinate" :10,
-      "upperRightYCoordinate" :22
+      "upperRightXCoordinate": 10,
+      "upperRightYCoordinate": 22
   }
    ```
 - Response
     - Status: 201 CREATED
         - Location: `http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d`
-        - Body `application/json`::
+        - Body `application/json`:
           ```json
           {
-              "upperRightXCoordinate" :10,
-              "upperRightYCoordinate" :22
+              "upperRightXCoordinate": 10,
+              "upperRightYCoordinate": 22
           }
           ```
     - Status: 409 CONFLICT
 - Example
   ```
-    curl --location --request POST 'http://localhost:8080/plateau' \
+  curl -v --request POST 'http://localhost:8080/plateau' \
         --header 'Content-Type: application/json' \
         --data-raw '{
             "upperRightXCoordinate": 10,
@@ -64,17 +64,17 @@ Application to control mowers through an API.
 - Description: Get the plateau by Id
 - Response
     - Status: 200 Ok
-        - Body `application/json`::
+        - Body `application/json`:
             ```json
                 {
-                    "upperRightYCoordinate" :10,
-                    "upperRightYCoordinate" :22
+                    "upperRightYCoordinate": 10,
+                    "upperRightYCoordinate": 22
                 }
             ```
     - Status: 404 Not Found
 - Example
   ```
-    curl --location --request GET 'http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d'
+  curl --request GET 'http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d'
   ```
 
 ### Mower
@@ -85,33 +85,33 @@ Application to control mowers through an API.
 - Header: `Content-Type: application/json`
 - Body:
   ```json
-    {
-        "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
-        "position": {
-            "x": 5,
-            "y": 6
-        },
-        "orientation": "N"
-    }
-   ```
+  {
+      "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
+      "position": {
+          "x": 5,
+          "y": 6
+      },
+      "orientation": "N"
+  }
+  ```
 - Response
     - Status: 201 CREATED
         - Location: `http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d`
             - Body `application/json`:
               ```json
-                {
-                    "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
-                    "position": {
-                        "x": 5,
-                        "y": 6
-                    },
-                    "orientation": "N"
-                }
+              {
+                  "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
+                  "position": {
+                      "x": 5,
+                      "y": 6
+                  },
+                  "orientation": "N"
+              }
               ```
     - Status: 409 CONFLICT
 - Example
   ```
-    curl --location --request POST 'http://localhost:8080/mower' \
+  curl -v --request POST 'http://localhost:8080/mower' \
         --header 'Content-Type: application/json' \
         --data-raw '{
             "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
@@ -142,7 +142,7 @@ Application to control mowers through an API.
     - Status: 404 Not Found
 - Example
   ```
-    curl --location --request GET 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d'
+    curl --request GET 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d'
   ```
 
 #### PUT `/mower/{id}`
@@ -159,7 +159,7 @@ Application to control mowers through an API.
                 "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
                 "position": {
                     "x": 5,
-                    "y": 6
+                    "y": 7
                 },
                 "orientation": "S"
             }
@@ -168,7 +168,7 @@ Application to control mowers through an API.
     - Status: 409 CONFLICT
 - Example
   ```
-    curl --location --request PUT 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d' \
+  curl --request PUT 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d' \
         --header 'Content-Type: text/plain' \
         --data-raw 'LMLMLMLMM'
   ```
@@ -222,17 +222,19 @@ docker push ajimenez15/mower
 ## Documentation
 
 The documentation is available using springdoc-openapi.
+
 Run the application `mvn spring-boot:run` and access to http://localhost:8080/swagger-ui/index.html
 
 ![img.png](img/imgDoc.png)
 
-## Continues Integration
+## CI (Continues Integration)
 
 ![img.png](img/imgCI.png)
 
 - Using GitHub actions `.github/workflows/ci.yml`
 - Each time there is a push into `master` branch:
-    - Build and test
+    - Build
+    - Test
       ![img.png](img/imgCiTest.png)
     - Push docker image into DockerHub https://hub.docker.com/repository/docker/ajimenez15/mower
     - Static analysis with SonarCloud https://sonarcloud.io/project/overview?id=softwarejimenez_mowers
@@ -240,7 +242,7 @@ Run the application `mvn spring-boot:run` and access to http://localhost:8080/sw
 
 ## Assumptions
 
-- A rest API will be used for the control, instead of using an input file.
+- A rest API will be used for the creation and the control, instead of using an input file.
 - If a mower try to move to a position out of the plateau, the movement will be omitted.
 - If a mower try to move to a busy position, the movement will be omitted.
 - Only one mower will be moved at the same time.

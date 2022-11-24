@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 @Tag(name = "Plateau API", description = "Manage the plateaus")
 @Validated
 public interface PlateauController {
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a plateau")
     @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<PlateauDto> createPlateau(@RequestBody @Valid PlateauDto plateau);

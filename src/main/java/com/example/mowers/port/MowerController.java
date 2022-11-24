@@ -18,7 +18,7 @@ import javax.validation.constraints.Pattern;
 @Validated
 public interface MowerController {
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a mower")
     @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<MowerDto> createMower(@RequestBody @Valid MowerDto mowerRequest);
