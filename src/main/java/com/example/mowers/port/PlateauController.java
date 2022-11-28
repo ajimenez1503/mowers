@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
-@RequestMapping(value = "/plateau")
+@RequestMapping(value = "/plateaus")
 @Tag(name = "Plateau API", description = "Manage the plateaus")
 @Validated
 public interface PlateauController {

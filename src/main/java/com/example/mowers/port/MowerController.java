@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-@RequestMapping(value = "/mower")
+@RequestMapping(value = "/mowers")
 @Tag(name = "Mower API", description = "Manage the mowers")
 @Validated
 public interface MowerController {

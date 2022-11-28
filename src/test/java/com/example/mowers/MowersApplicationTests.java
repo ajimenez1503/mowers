@@ -39,7 +39,7 @@ class MowersApplicationTests {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ResponseEntity<PlateauDto> resultCreation = restTemplate.exchange(
-                "/plateau",
+                "/plateaus",
                 HttpMethod.POST,
                 new HttpEntity<Object>(plateauDto, headers),
                 PlateauDto.class);
@@ -48,7 +48,7 @@ class MowersApplicationTests {
 
         String getPath = resultCreation.getHeaders().getLocation().getPath();
         assertNotNull(getPath);
-        assertTrue(getPath.contains("/plateau/"));
+        assertTrue(getPath.contains("/plateaus/"));
 
         ResponseEntity<PlateauDto> resultGet = restTemplate.exchange(
                 getPath,
@@ -64,7 +64,7 @@ class MowersApplicationTests {
         HttpHeaders headersPlateau = new HttpHeaders();
         headersPlateau.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity<PlateauDto> resultPlateauCreation = restTemplate.exchange(
-                "/plateau",
+                "/plateaus",
                 HttpMethod.POST,
                 new HttpEntity<Object>(plateauDto, headersPlateau),
                 PlateauDto.class);
@@ -76,7 +76,7 @@ class MowersApplicationTests {
         HttpHeaders headersMower = new HttpHeaders();
         headersMower.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity<MowerDto> resultMowerCreation = restTemplate.exchange(
-                "/mower",
+                "/mowers",
                 HttpMethod.POST,
                 new HttpEntity<Object>(mowerDto, headersMower),
                 MowerDto.class);
@@ -85,7 +85,7 @@ class MowersApplicationTests {
 
         String getMowerPath = resultMowerCreation.getHeaders().getLocation().getPath();
         assertNotNull(getMowerPath);
-        assertTrue(getMowerPath.contains("/mower/"));
+        assertTrue(getMowerPath.contains("/mowers/"));
 
         ResponseEntity<MowerDto> resultGet = restTemplate.exchange(
                 getMowerPath,
@@ -102,7 +102,7 @@ class MowersApplicationTests {
         HttpHeaders headersPlateau = new HttpHeaders();
         headersPlateau.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity<PlateauDto> resultPlateauCreation = restTemplate.exchange(
-                "/plateau",
+                "/plateaus",
                 HttpMethod.POST,
                 new HttpEntity<Object>(plateauDto, headersPlateau),
                 PlateauDto.class);
@@ -114,7 +114,7 @@ class MowersApplicationTests {
         HttpHeaders headersMower = new HttpHeaders();
         headersMower.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity<MowerDto> resultMowerCreation = restTemplate.exchange(
-                "/mower",
+                "/mowers",
                 HttpMethod.POST,
                 new HttpEntity<Object>(mowerDto, headersMower),
                 MowerDto.class);
@@ -140,7 +140,7 @@ class MowersApplicationTests {
         HttpHeaders headersPlateau = new HttpHeaders();
         headersPlateau.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity<PlateauDto> resultPlateauCreation = restTemplate.exchange(
-                "/plateau",
+                "/plateaus",
                 HttpMethod.POST,
                 new HttpEntity<Object>(plateauDto, headersPlateau),
                 PlateauDto.class);
@@ -153,7 +153,7 @@ class MowersApplicationTests {
         HttpHeaders headersMower1 = new HttpHeaders();
         headersMower1.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity<MowerDto> resultMowerCreation1 = restTemplate.exchange(
-                "/mower",
+                "/mowers",
                 HttpMethod.POST,
                 new HttpEntity<Object>(mowerDto1, headersMower1),
                 MowerDto.class);
@@ -176,7 +176,7 @@ class MowersApplicationTests {
         HttpHeaders headersMower2 = new HttpHeaders();
         headersMower2.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity<MowerDto> resultMowerCreation2 = restTemplate.exchange(
-                "/mower",
+                "/mowers",
                 HttpMethod.POST,
                 new HttpEntity<Object>(mowerDto2, headersMower2),
                 MowerDto.class);
@@ -202,7 +202,7 @@ class MowersApplicationTests {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ResponseEntity<PlateauDto> resultCreation = restTemplate.exchange(
-                "/plateau",
+                "/plateaus",
                 HttpMethod.POST,
                 new HttpEntity<Object>(plateauDto, headers),
                 PlateauDto.class);
@@ -216,7 +216,7 @@ class MowersApplicationTests {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ResponseEntity<PlateauDto> resultCreation = restTemplate.exchange(
-                "/plateau",
+                "/plateaus",
                 HttpMethod.POST,
                 new HttpEntity<Object>(plateauDto, headers),
                 PlateauDto.class);
@@ -226,7 +226,7 @@ class MowersApplicationTests {
     @Test
     void givenApp_whenBlankPlateauId_andGetPlateau_thenBadRequest() {
         ResponseEntity<Object> resultCreation = restTemplate.exchange(
-                "/plateau/ ",
+                "/plateaus/ ",
                 HttpMethod.GET,
                 null,
                 Object.class);
@@ -240,7 +240,7 @@ class MowersApplicationTests {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ResponseEntity<MowerDto> resultCreation = restTemplate.exchange(
-                "/mower",
+                "/mowers",
                 HttpMethod.POST,
                 new HttpEntity<Object>(mowerDto, headers),
                 MowerDto.class);
@@ -250,7 +250,7 @@ class MowersApplicationTests {
     @Test
     void givenApp_whenBlankMowerId_andGetMower_thenBadRequest() {
         ResponseEntity<Object> resultCreation = restTemplate.exchange(
-                "/mower/ ",
+                "/mowers/ ",
                 HttpMethod.GET,
                 null,
                 Object.class);
@@ -260,7 +260,7 @@ class MowersApplicationTests {
     @Test
     void givenApp_whenBlankMowerId_andMoveMower_thenBadRequest() {
         ResponseEntity<Object> resultCreation = restTemplate.exchange(
-                "/mower/ ",
+                "/mowers/ ",
                 HttpMethod.PUT,
                 new HttpEntity<Object>("MMRMMRMRRM", new HttpHeaders()),
                 Object.class);
@@ -270,7 +270,7 @@ class MowersApplicationTests {
     @Test
     void givenApp_whenInvalidCommands_andMoveMower_thenBadRequest() {
         ResponseEntity<Object> resultCreation = restTemplate.exchange(
-                "/mower/ID",
+                "/mowers/ID",
                 HttpMethod.PUT,
                 new HttpEntity<Object>("badCommands", new HttpHeaders()),
                 Object.class);

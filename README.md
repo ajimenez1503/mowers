@@ -27,7 +27,7 @@ Application to control mowers through an API.
 
 ### Plateau
 
-#### POST `/plateau`
+#### POST `/plateaus`
 
 - Description: Create a plateau
 - Header: `Content-Type: application/json`
@@ -40,7 +40,7 @@ Application to control mowers through an API.
    ```
 - Response
     - Status: 201 CREATED
-        - Location: `http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d`
+        - Location: `http://localhost:8080/plateaus/b9406067-4d3e-4210-93d1-5db05e9b939d`
         - Body `application/json`:
           ```json
           {
@@ -51,7 +51,7 @@ Application to control mowers through an API.
     - Status: 409 CONFLICT
 - Example
   ```
-  curl -v --request POST 'http://localhost:8080/plateau' \
+  curl -v --request POST 'http://localhost:8080/plateaus' \
         --header 'Content-Type: application/json' \
         --data-raw '{
             "upperRightXCoordinate": 10,
@@ -59,7 +59,7 @@ Application to control mowers through an API.
         }'
   ```
 
-#### GET `/plateau/{id}`
+#### GET `/plateaus/{id}`
 
 - Description: Get the plateau by Id
 - Response
@@ -74,12 +74,12 @@ Application to control mowers through an API.
     - Status: 404 Not Found
 - Example
   ```
-  curl --request GET 'http://localhost:8080/plateau/b9406067-4d3e-4210-93d1-5db05e9b939d'
+  curl --request GET 'http://localhost:8080/plateaus/b9406067-4d3e-4210-93d1-5db05e9b939d'
   ```
 
 ### Mower
 
-#### POST `/mower`
+#### POST `/mowers`
 
 - Description: Create a mower
 - Header: `Content-Type: application/json`
@@ -96,7 +96,7 @@ Application to control mowers through an API.
   ```
 - Response
     - Status: 201 CREATED
-        - Location: `http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d`
+        - Location: `http://localhost:8080/mowers/b9406067-4d3e-4210-93d1-5db05e9b939d`
             - Body `application/json`:
               ```json
               {
@@ -111,7 +111,7 @@ Application to control mowers through an API.
     - Status: 409 CONFLICT
 - Example
   ```
-  curl -v --request POST 'http://localhost:8080/mower' \
+  curl -v --request POST 'http://localhost:8080/mowers' \
         --header 'Content-Type: application/json' \
         --data-raw '{
             "plateauId": "b9406067-4d3e-4210-93d1-5db05e9b939d",
@@ -123,7 +123,7 @@ Application to control mowers through an API.
         }'
   ```
 
-#### GET `/mower/{id}`
+#### GET `/mowers/{id}`
 
 - Description: Get the mower by Id
 - Response
@@ -142,10 +142,10 @@ Application to control mowers through an API.
     - Status: 404 Not Found
 - Example
   ```
-    curl --request GET 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d'
+    curl --request GET 'http://localhost:8080/mowers/b9406067-4d3e-4210-93d1-5db05e9b939d'
   ```
 
-#### PUT `/mower/{id}`
+#### PUT `/mowers/{id}`
 
 - Description: Move the mower by Id
 - Header: `Content-Type: text/plain`
@@ -168,7 +168,7 @@ Application to control mowers through an API.
     - Status: 409 CONFLICT
 - Example
   ```
-  curl --request PUT 'http://localhost:8080/mower/b9406067-4d3e-4210-93d1-5db05e9b939d' \
+  curl --request PUT 'http://localhost:8080/mowers/b9406067-4d3e-4210-93d1-5db05e9b939d' \
         --header 'Content-Type: text/plain' \
         --data-raw 'LMLMLMLMM'
   ```
