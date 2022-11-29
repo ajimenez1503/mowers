@@ -12,5 +12,5 @@ public interface MowerService {
 
     Optional<Mower> getMower(String mowerId);
 
-    public Optional<Mower> moveMower(Mower mower, List<Command> commands);
+    Optional<Mower> moveMower(Mower mower, List<Command> commands);
 }

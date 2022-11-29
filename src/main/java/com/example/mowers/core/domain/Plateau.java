@@ -14,7 +14,6 @@ import java.util.UUID;
 @ToString
 public class Plateau {
     private final String id;
-
     private final int sizeX;
     private final int sizeY;
     private Availability[][] availability;
@@ -36,7 +35,7 @@ public class Plateau {
     }
 
     public void setPositionFree(Point position) throws Exception {
-        if (isValidPosition(position)) {
+        if (isPositionValid(position)) {
             this.availability[position.x][position.y] = Availability.FREE;
         } else {
             throw new Exception("Position (" + position.getX() + ", " + position.getY() + ") is not valid");
@@ -44,14 +43,14 @@ public class Plateau {
     }
 
     public void setPositionBusy(Point position) throws Exception {
-        if (isValidPosition(position)) {
+        if (isPositionValid(position)) {
             this.availability[position.x][position.y] = Availability.BUSY;
         } else {
             throw new Exception("Position (" + position.getX() + ", " + position.getY() + ") is not valid");
         }
     }
 
-    public boolean isValidPosition(Point position) {
+    public boolean isPositionValid(Point position) {
         return position.getX() < this.sizeX
                 && position.getY() < this.sizeY
                 && position.getX() >= 0

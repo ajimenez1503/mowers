@@ -33,7 +33,7 @@ public class MowerServiceImpl implements MowerService {
             return Optional.empty();
         }
         Plateau plateau = plateauOptional.get();
-        if (!plateau.isValidPosition(mowerRequest.getPosition())) {
+        if (!plateau.isPositionValid(mowerRequest.getPosition())) {
             log.warn("The new mower position {} is not valid", mowerRequest.getPosition());
             return Optional.empty();
         }
@@ -68,7 +68,7 @@ public class MowerServiceImpl implements MowerService {
             Point nextPosition = getNextPosition(mower, c);
             if (nextPosition.equals(mower.getPosition())) {
                 execute(mower, c);
-            } else if (plateau.isValidPosition(nextPosition) && plateau.isPositionAvailable(nextPosition)) {
+            } else if (plateau.isPositionValid(nextPosition) && plateau.isPositionAvailable(nextPosition)) {
                 // nextPosition is available
                 try {
                     plateau.setPositionFree(mower.getPosition());
